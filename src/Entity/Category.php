@@ -31,12 +31,16 @@ class Category
      */
     private $books;
 
-    public function getId(): int
+    public function __toString() {
+        return $this->name;
+    }
+
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -51,7 +55,7 @@ class Category
     /**
      * @return Collection|Book[]
      */
-    public function getBooks(): Collection
+    public function getBooks(): ?Collection
     {
         return $this->books;
     }
