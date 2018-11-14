@@ -15,8 +15,8 @@ easy_admin:
           - { property: 'title', sortable: true }
           - { property: 'authors', type: 'array' }
           - 'owner'
-          - { property: 'categories', type: 'entity', type_options: { class: 'App\Entity\Category'} }
-          - { property: 'borrowedBook.user', label: 'Borrower' }
+          - { property: 'categories' }
+          - { property: 'borrowedBooks.user', label: 'Borrower' }
       form:
         fields:
           - { property: 'title', type_options: { required: true } }
