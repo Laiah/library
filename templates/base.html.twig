@@ -41,12 +41,28 @@
                             <a class="nav-link active text-white" href="/">Liste de livres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Proposer un livre</a>
+                            <a class="nav-link text-white" data-toggle="modal" data-target="#modalProposal">Proposer un livre</a>
                         </li>
                     </ul>
                 </nav>
             </div>
         </header>
+
+        <div class="modal fade" id="modalProposal" tabindex="-1" role="dialog" aria-labelledby="modalProposal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Proposer un livre à la bibliothèque</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Envoyer un mail à <a href="mailto:admin-biblio@ekino.com?subject=Je souhaite proposer un livre">admin-biblio@ekino.com</a> avec toutes les informations concernant le livre.
+                    </div>
+                </div>
+            </div>
+        </div>
 
     {% block body %}
     {% endblock %}
