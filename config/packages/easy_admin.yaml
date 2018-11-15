@@ -1,6 +1,52 @@
-#easy_admin:
-#    entities:
-#        # List the entity class name you want to manage
-#        - App\Entity\Product
-#        - App\Entity\Category
-#        - App\Entity\User
+easy_admin:
+  site_name: 'Ekinothèque'
+  design:
+    menu:
+      - { entity: 'Book', icon: 'book'}
+      - { entity: 'User', icon: 'user'}
+      - { entity: 'Category', icon: 'hashtag'}
+  entities:
+    Book:
+      class: App\Entity\Book
+      label: 'Books'
+      list:
+        fields:
+          - 'id'
+          - { property: 'title', sortable: true }
+          - { property: 'authors', type: 'array' }
+          - 'owner'
+          - { property: 'categories' }
+          - { property: 'borrowedBooks.user', label: 'Borrower' }
+      form:
+        fields:
+          - { property: 'title', type_options: { required: true } }
+          - { property: 'description', type_options: { required: true } }
+          - { property: 'authors', type_options: { required: true } }
+          - { property: 'cover', label: 'Cover (URL)', type_options: { required: true } }
+          - { property: 'isbn', label: 'ISBN (13)', type: 'text', type_options: { required: true } }
+          - { property: 'owner', label: 'Owner', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\User', required: true } }
+          - { property: 'categories', type: 'entity', type_options: { class: 'App\Entity\Category', multiple: true, required: true, by_reference: false } }
+
+    User:
+      class: App\Entity\User
+      label: 'Users'
+      list:
+        fields:
+          - 'id'
+          - 'firstname'
+          - 'username'
+          - 'hasBorrowed'
+      form:
+        fields:
+          - { property: 'firstname', type_options: { required: true } }
+          - { property: 'username', type_options: { required: true } }
+          - { property: 'email', type: 'email', type_options: { required: true } }
+          - { property: 'hasBorrowed', label: 'Has borrowed a book' }
+
+    Category:
+      class: App\Entity\Category
+      label: 'Categories'
+      list:
+        fields: ['id', 'name']
+      form:
+        fields: ['name']

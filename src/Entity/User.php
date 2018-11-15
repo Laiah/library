@@ -60,14 +60,19 @@ class User
     {
         $this->books = new ArrayCollection();
         $this->borrowedBooks = new ArrayCollection();
+        $this->setHasBorrowed(false);
     }
 
-    public function getId(): int
+    public function __toString(): string {
+        return $this->firstname . ' - @' . $this->username;
+    }
+
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFirstname(): string
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
@@ -79,7 +84,7 @@ class User
         return $this;
     }
 
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
@@ -91,7 +96,7 @@ class User
         return $this;
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }

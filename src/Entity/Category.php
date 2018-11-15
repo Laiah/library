@@ -27,16 +27,21 @@ class Category
 
     /**
      * Many categories can have many books
-     * @ORM\ManyToMany(targetEntity="App\Entity\Book", inversedBy="categories", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Book", mappedBy="categories", cascade={"persist"})
      */
     private $books;
 
-    public function getId(): int
+    public function __toString(): string
+    {
+        return (string) $this->name;
+    }
+
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -51,7 +56,7 @@ class Category
     /**
      * @return Collection|Book[]
      */
-    public function getBooks(): Collection
+    public function getBooks(): ?Collection
     {
         return $this->books;
     }

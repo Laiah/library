@@ -39,7 +39,7 @@ class Book
     private $cover;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", length=13, nullable=false)
      * @Assert\NotBlank()
      * @Assert\Isbn(
      *   type = "isbn13",
@@ -57,7 +57,8 @@ class Book
 
     /**
      * Many books can have many categories
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="books", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="books", cascade={"persist"})
+     * @ORM\JoinTable(name="category_book")
      */
     private $categories;
 
@@ -79,12 +80,12 @@ class Book
         $this->borrowedBooks = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -96,7 +97,7 @@ class Book
         return $this;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -108,7 +109,7 @@ class Book
         return $this;
     }
 
-    public function getCover(): string
+    public function getCover(): ?string
     {
         return $this->cover;
     }
@@ -120,7 +121,7 @@ class Book
         return $this;
     }
 
-    public function getISBN(): int
+    public function getISBN(): ?int
     {
         return $this->ISBN;
     }
@@ -132,7 +133,7 @@ class Book
         return $this;
     }
 
-    public function getOwner(): User
+    public function getOwner(): ?User
     {
         return $this->owner;
     }
