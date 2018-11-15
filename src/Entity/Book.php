@@ -57,7 +57,7 @@ class Book
 
     /**
      * Many books can have many categories
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="books", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="books", cascade={"persist"})
      * @ORM\JoinTable(name="category_book")
      */
     private $categories;

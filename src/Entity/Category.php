@@ -27,7 +27,7 @@ class Category
 
     /**
      * Many categories can have many books
-     * @ORM\ManyToMany(targetEntity="App\Entity\Book", mappedBy="categories", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Book", mappedBy="categories", cascade={"persist"})
      */
     private $books;
 
