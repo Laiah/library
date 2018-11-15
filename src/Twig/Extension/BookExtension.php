@@ -2,6 +2,7 @@
 
 namespace App\Twig\Extension;
 
+use App\Entity\Book;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -23,8 +24,9 @@ class BookExtension extends AbstractExtension {
         return 'book_extension';
     }
 
-    public function shortenTitle(string $title, int $maxLength)
+    public function shortenTitle(Book $book, int $maxLength)
     {
+        $title = $book->getTitle();
         if (strlen($title) < $maxLength) {
             return $title;
         }

@@ -2,6 +2,7 @@
 
 namespace App\Tests\Twig\Extension;
 
+use App\Entity\Book;
 use App\Twig\Extension\BookExtension;
 use PHPUnit\Framework\TestCase;
 
@@ -13,12 +14,22 @@ class BookExtensionTest extends TestCase {
         $this->bookExtension = new BookExtension();
     }
 
-    public function testShortenTitle() {
-        $longTitle = 'Méthodes de design UX : 30 méthodes fondamentales pour concevoir des expériences optimales';
+    /**
+     * @dataProvider titleProvider
+     */
+    public function testShortenTitle($title, $expected, $maxLength)
+    {
+        $book = new Book();
+        $book->setTitle($title);
+        $this->assertSame($expected, $this->bookExtension->shortenTitle($book, $maxLength));
+    }
 
-        $this->assertSame('Méthodes de design UX :  ...', $this->bookExtension->shortenTitle($longTitle, 25));
-
-        $shortTitle = 'Base de données';
-        $this->assertSame($shortTitle, $this->bookExtension->shortenTitle($shortTitle, 25));
+    public function titleProvider()
+    {
+        return [
+            ['Méthodes de design UX : 30 méthodes fondamentales pour concevoir des expériences optimales', 'Méthodes de design UX :  ...', 25],
+            ['Base de données', 'Base de données', 25],
+            ['Base de données', 'Base de donn ...', 12]
+        ];
     }
 }
