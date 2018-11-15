@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="pt-10" style="margin: 50px 0;">
+        <!-- TITRE DE LA PAGE -->
+        <h1>Tous les livres disponibles ({{ books | length }})</h1>
+        <div class="filters">
+            <div class="btn-group">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filtres
+                </button>
+                <div class="dropdown-menu">
+                    {% for category in categories %}
+                        <a class="dropdown-item" href="#">{{ category.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+
+            {% for book in books %}
+            <!-- DÉBUT COL4 -->
+            <div class="col-4">
+                <!-- DÉBUT COMPOSANT CARD -->
+                <div class="card mb-3" style="width: 18rem;">
+                    <div class="card-top">
+                        <!-- TODO: change "Disponible" with real book disponibility -->
+                        <span class="badge badge-pill badge-primary">Disponible</span>
+                        <img class="card-img-top"
+                             src="{{ book.cover }}"
+                             alt="Card image cap"
+                        >
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ shortTitle(book, 25) }}</h5>
+
+                        <p class="card-text">{% for category in book.categories %}#{{ category.name }} {% endfor %}</p>
+                        <a href="#" class="btn btn-primary">Voir le détail</a>
+                    </div>
+                </div>
+                <!-- FIN COMPOSANT CARD -->
+            </div>
+            <!-- FIN COL4 -->
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

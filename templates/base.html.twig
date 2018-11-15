@@ -2,11 +2,58 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>Ekinothèque{% block title %}{% endblock %}</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <style media="screen">
+            .card-img-top {
+                height: 200px;
+                width: auto;
+                margin: 0 auto;
+            }
+
+            .card-top {
+                background:#EDEDED;
+                text-align: center;
+                position: relative;
+            }
+
+            .card-top .badge {
+                position: absolute;
+                left: 15px;
+                bottom: 15px;
+            }
+
+            .page-title {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+        </style>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <header class="bg-primary" style="padding:15px 0;">
+            <div class="container">
+                <nav>
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" href="/">Liste de livres</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Proposer un livre</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+    {% block body %}
+    {% endblock %}
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
