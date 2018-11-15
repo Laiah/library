@@ -25,7 +25,7 @@ easy_admin:
           - { property: 'cover', label: 'Cover (URL)', type_options: { required: true } }
           - { property: 'isbn', label: 'ISBN (13)', type: 'text', type_options: { required: true } }
           - { property: 'owner', label: 'Owner', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\User', required: true } }
-          - { property: 'categories', type: 'entity', type_options: { class: 'App\Entity\Category', multiple: true, required: true } }
+          - { property: 'categories', type: 'entity', type_options: { class: 'App\Entity\Category', multiple: true, required: true, by_reference: false } }
 
     User:
       class: App\Entity\User
