@@ -60,9 +60,10 @@ class User
     {
         $this->books = new ArrayCollection();
         $this->borrowedBooks = new ArrayCollection();
+        $this->setHasBorrowed(false);
     }
 
-    public function __toString() {
+    public function __toString(): string {
         return $this->firstname . ' - @' . $this->username;
     }
 
@@ -107,7 +108,7 @@ class User
         return $this;
     }
 
-    public function getHasBorrowed(): ?bool
+    public function getHasBorrowed(): bool
     {
         return $this->hasBorrowed;
     }
