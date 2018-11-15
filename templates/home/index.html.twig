@@ -34,7 +34,7 @@
                         >
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ book.title | length > 25 ? book.title|slice(0,24) ~ '...' : book.title }}</h5>
+                        <h5 class="card-title">{{ shortTitle(book.title, 25) }}</h5>
 
                         <p class="card-text">{% for category in book.categories %}#{{ categorie }}{% endfor %}</p>
                         <a href="#" class="btn btn-primary">Voir le détail</a>
