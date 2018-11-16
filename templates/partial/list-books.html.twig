@@ -1,0 +1,26 @@
+<div class="row">
+    {% for book in books %}
+        <!-- DÉBUT COL4 -->
+        <div class="col-4">
+            <!-- DÉBUT COMPOSANT CARD -->
+            <div class="card mb-3" style="width: 18rem;">
+                <div class="card-top">
+                    <!-- TODO: change "Disponible" with real book disponibility -->
+                    <span class="badge badge-pill badge-primary">Disponible</span>
+                    <img class="card-img-top"
+                         src="{{ book.cover }}"
+                         alt="Card image cap"
+                    >
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ shortTitle(book, 25) }}</h5>
+
+                    <p class="card-text">{% for category in book.categories %}#{{ category.name }} {% endfor %}</p>
+                    <a href="#" class="btn btn-primary">Voir le détail</a>
+                </div>
+            </div>
+            <!-- FIN COMPOSANT CARD -->
+        </div>
+        <!-- FIN COL4 -->
+    {% endfor %}
+</div>

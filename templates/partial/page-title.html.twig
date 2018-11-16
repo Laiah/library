@@ -1,0 +1,18 @@
+<!-- TITRE DE LA PAGE -->
+<div class="page-title">
+    <h1>Tous les livres disponibles ({{ books | length }})</h1>
+    <div class="filters">
+        <div class="btn-group">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filtres
+            </button>
+            <div class="dropdown-menu">
+                {% for category in categories %}
+                    <a class="dropdown-item" href="{{ path('ekinotheque_filter_book', {id: category.id}) }}">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
