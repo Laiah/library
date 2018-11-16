@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="container mt-4">
+        <a href="{{ path('ekinotheque_home') }}">< Revenir à la liste</a>
+        
+        <div class="row mt-4 d-flex">
+            <img src="{{ book.cover }}" class="h-100 col-2">
+
+            <div class="col-10">
+                <!-- TODO: change "Disponible" with real book disponibility -->
+                <span class="badge badge-pill badge-primary">Disponible</span>
+                <h1>{{ book.title }}</h1>
+                <p>Mis à disposition par : {{ book.owner }}</p>
+
+                <hr>
+
+                <p>{{ book.description }}</p>
+
+                <span class="font-weight-bold">
+                    {% for category in book.categories %}
+                        #{{ category }}
+                    {% endfor %}
+                </span>
+
+                <!-- TODO: If book is not available, disable buttons -->
+                <div class="mx-auto my-4">
+                    <a href="" class="btn btn-primary mr-4 shadow">Emprunter le livre chez soi</a>
+                    <a href="" class="btn btn-outline-primary shadow">Emprunter le livre au bench</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="container-fluid mt-4 bg-light">
+        <div class="container">
+            <h2 class="mb-4 pt-4">Historique d'emprunt</h2>
+
+            <table class="table table-borderless table-hover mx-auto">
+                <thead>
+                    <tr>
+                        <th>Prénom</th>
+                        <th>Pseudo</th>
+                        <th>Date d'emprunt</th>
+                        <th>Date de retour</th>
+                        <th>Type d'emprunt</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for borrowedBook in book.borrowedBooks %}
+                        <tr class="border-bottom">
+                            <td>{{ borrowedBook.user.firstname }}</td>
+                            <td>{{ borrowedBook.user.username }}</td>
+                            <td>{{ borrowedBook.borrowingDateString }}</td>
+                            <td>{{ borrowedBook.returnDateString }}</td>
+                            <td>{{ borrowedBook.isBenchReservationString }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+{% endblock %}
