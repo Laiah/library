@@ -131,4 +131,23 @@ class BorrowedBook
 
         return $this;
     }
+
+    public function getIsBenchReservationString(): string
+    {
+        if ($this->getIsBenchReservation()) {
+            return 'Bench';
+        }
+
+        return 'Maison';
+    }
+
+    public function getBorrowingDateString(): string
+    {
+        return date_format($this->borrowingDate, 'd-m-Y');
+    }
+
+    public function getReturnDateString(): string
+    {
+        return date_format($this->returnDate, 'd-m-Y');
+    }
 }
