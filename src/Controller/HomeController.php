@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Service\BookService;
 use App\Service\CategoryService;
+use \Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -12,23 +14,60 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  *
  * @package App\Controller
  */
-class HomeController extends AbstractController {
+class HomeController extends AbstractController
+{
+    /**
+     * All the filters available.
+     * @var \App\Entity\Category[]
+     */
+    private $categories;
+
+    /**
+     * HomeController constructor.
+     *
+     * @param \App\Service\CategoryService $categoryService
+     */
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categories = $categoryService->findAll();
+    }
 
     /**
      * @Route(name="ekinotheque_home", path="/")
      * @param \App\Service\BookService $bookService
-     * @param \App\Service\CategoryService $categoryService
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-  public function index(BookService $bookService, CategoryService $categoryService)
-  {
-      $books = $bookService->findAll();
-      $categories = $categoryService->findAll();
-      return $this->render('home/index.html.twig', [
-          'books' => $books,
-          'categories' => $categories,
-          ]
-      );
-  }
+    public function index(BookService $bookService): Response
+    {
+        $books = $bookService->findAll();
+        return $this->render(
+            'home/index.html.twig',
+            [
+                'books' => $books,
+                'categories' => $this->categories,
+            ]
+        );
+    }
+
+    /**
+     * @Route(
+     *     name="ekinotheque_filter_book",
+     *     path="/{categoryId}"
+     *     )
+     * @param \App\Entity\Category $category
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function filter(Category $category): Response
+    {
+        $books = $category->getBooks();
+        return $this->render(
+            'home/filter.html.twig',
+            [
+                'books' => $books,
+                'categories' => $this->categories,
+            ]
+        );
+    }
 }

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="pt-10" style="margin: 50px 0;">
+    {% include 'partial/page-title.html.twig' %}
+
+    {% if books|length > 0 %}
+        {% include 'partial/list-books.html.twig' %}
+    {% else %}
+        {% include 'partial/no-results.html.twig' %}
+    {% endif %}
+    </div>
+</div>
+{% endblock %}
