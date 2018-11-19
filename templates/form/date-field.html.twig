@@ -1,0 +1,25 @@
+{% block _borrowed_book_borrowingDate_widget %}
+<div>
+    <div class="form-group">
+        <div class="input-group date" id="borrowingdate" data-target-input="nearest">
+            <input name="borrowed_book[borrowingDate]" id="borrowed_book[borrowingDate]" type="text" class="form-control datetimepicker-input" data-target="#borrowingdate" value=""/>
+            <div class="input-group-append" data-target="#borrowingdate" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block _borrowed_book_returnDate_widget %}
+<div>
+    <div class="form-group">
+        <div class="input-group date" id="returndate" data-target-input="nearest">
+            <input name="borrowed_book[returnDate]" id="borrowed_book[returnDate]" type="text" class="form-control datetimepicker-input" data-target="#returndate" value=""/>
+            <div class="input-group-append" data-target="#returndate" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

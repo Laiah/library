@@ -8,7 +8,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20181115145202 extends AbstractMigration
+final class version20181115145202 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
@@ -22,7 +22,7 @@ final class Version20181115145202 extends AbstractMigration
         $this->addSql('CREATE TABLE category_book (category_id INTEGER NOT NULL, book_id INTEGER NOT NULL, PRIMARY KEY(book_id, category_id), CONSTRAINT FK_407ED97616A2B381 FOREIGN KEY (book_id) REFERENCES book (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_407ED97612469DE2 FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_407ED97616A2B381 ON category_book (book_id)');
         $this->addSql('CREATE INDEX IDX_407ED97612469DE2 ON category_book (category_id)');
-        $this->addSql('CREATE TABLE borrowed_book (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, book_id INTEGER NOT NULL, user_id INTEGER NOT NULL, borrowing_date TEXT NOT NULL, return_date TEXT NOT NULL, has_been_returned BOOLEAN NOT NULL, is_bench_reservation BOOLEAN NOT NULL, CONSTRAINT FK_50A9B8BC16A2B381 FOREIGN KEY (book_id) REFERENCES book (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_50A9B8BCA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
+        $this->addSql('CREATE TABLE borrowed_book (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, book_id INTEGER NOT NULL, user_id INTEGER NOT NULL, borrowing_date DATE NOT NULL, return_date DATE NOT NULL, has_been_returned BOOLEAN NOT NULL, reservation VARCHAR(20) NOT NULL, has_been_validated BOOLEAN NOT NULL, CONSTRAINT FK_50A9B8BC16A2B381 FOREIGN KEY (book_id) REFERENCES book (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_50A9B8BCA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_50A9B8BCA76ED395 ON borrowed_book (user_id)');
         $this->addSql('CREATE INDEX IDX_50A9B8BC16A2B381 ON borrowed_book (book_id)');
         $this->addSql('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, firstname VARCHAR(30) NOT NULL, username VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, has_borrowed BOOLEAN NOT NULL)');

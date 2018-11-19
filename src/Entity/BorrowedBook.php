@@ -12,6 +12,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class BorrowedBook
 {
+    const Maison = 'Maison';
+    const Bench = 'Bench';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -36,12 +39,14 @@ class BorrowedBook
     /**
      * @ORM\Column(type="date")
      * @Assert\Date()
+     * @Assert\NotBlank()
      */
     private $borrowingDate;
 
     /**
      * @ORM\Column(type="date")
      * @Assert\Date()
+     * @Assert\NotBlank()
      */
     private $returnDate;
 
@@ -51,9 +56,21 @@ class BorrowedBook
     private $hasBeenReturned;
 
     /**
+     * @ORM\Column(type="string")
+     * @Assert\Choice({"Maison", "Bench"})
+     */
+    private $reservation;
+
+    /**
      * @ORM\Column(type="boolean")
      */
-    private $isBenchReservation;
+    private $hasBeenValidated;
+
+    public function __construct()
+    {
+        $this->setHasBeenReturned(false);
+        $this->setHasBeenValidated(false);
+    }
 
     public function getId(): int
     {
@@ -72,7 +89,7 @@ class BorrowedBook
         return $this;
     }
 
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }
@@ -84,7 +101,7 @@ class BorrowedBook
         return $this;
     }
 
-    public function getBorrowingDate(): \DateTimeInterface
+    public function getBorrowingDate(): ?\DateTimeInterface
     {
         return $this->borrowingDate;
     }
@@ -96,7 +113,7 @@ class BorrowedBook
         return $this;
     }
 
-    public function getReturnDate(): \DateTimeInterface
+    public function getReturnDate(): ?\DateTimeInterface
     {
         return $this->returnDate;
     }
@@ -120,34 +137,27 @@ class BorrowedBook
         return $this;
     }
 
-    public function getIsBenchReservation(): bool
+    public function getReservation(): ?string
     {
-        return $this->isBenchReservation;
+        return $this->reservation;
     }
 
-    public function setIsBenchReservation(bool $isBenchReservation): self
+    public function setReservation(string $reservation): self
     {
-        $this->isBenchReservation = $isBenchReservation;
+        $this->reservation = $reservation;
 
         return $this;
     }
 
-    public function getIsBenchReservationString(): string
+    public function getHasBeenValidated(): bool
     {
-        if ($this->getIsBenchReservation()) {
-            return 'Bench';
-        }
-
-        return 'Maison';
+        return $this->hasBeenValidated;
     }
 
-    public function getBorrowingDateString(): string
+    public function setHasBeenValidated(bool $hasBeenValidated): self
     {
-        return date_format($this->borrowingDate, 'd-m-Y');
-    }
+        $this->hasBeenValidated = $hasBeenValidated;
 
-    public function getReturnDateString(): string
-    {
-        return date_format($this->returnDate, 'd-m-Y');
+        return $this;
     }
 }
