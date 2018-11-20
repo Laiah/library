@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Service\BookService;
 use App\Service\CategoryService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use \Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -55,6 +56,7 @@ class HomeController extends AbstractController
      *     name="ekinotheque_filter_book",
      *     path="/{categoryId}"
      *     )
+     * @ParamConverter(name="category", options={"mapping": {"categoryId" : "id"}})
      * @param \App\Entity\Category $category
      *
      * @return \Symfony\Component\HttpFoundation\Response
