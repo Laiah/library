@@ -3,6 +3,7 @@
 namespace App\Tests\Twig\Extension;
 
 use App\Entity\Book;
+use App\Service\DateHelper;
 use App\Twig\Extension\BookExtension;
 use PHPUnit\Framework\TestCase;
 
@@ -11,7 +12,8 @@ class BookExtensionTest extends TestCase {
     private $bookExtension;
 
     public function setUp() {
-        $this->bookExtension = new BookExtension();
+        $dateHelper = $this->createMock(DateHelper::class);
+        $this->bookExtension = new BookExtension($dateHelper);
     }
 
     /**

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="container mt-4">
+        <h1 class="mt-4">Votre demande d'emprunt a bien été prise en compte</h1>
+
+        <hr>
+
+        <div class="row my-5 bg-light shadow p-4 w-75 mx-auto">
+            <div class="d-flex">
+                <div class="col-6">
+                    <h3>La réservation</h3>
+                    <p>Réservation n°{{ borrowedBook.id }}</p>
+                    <p>Du {{ borrowedBook.borrowingDate|date('d/m/Y') }} au {{ borrowedBook.returnDate|date('d/m/Y') }}</p>
+                    <p>Pour {{ borrowedBook.user.firstname }}</p>
+                    <p>Statut : en attente de confirmation</p>
+                </div>
+                <div class="col-6">
+                    <h3>Le livre</h3>
+                    <p class="font-weight-bold">{{ book.title }}</p>
+                    <p>Mis à disposition par : {{ book.owner }}</p>
+                    <p class="card-text font-weight-bold">{% for category in book.categories %}#{{ category.name }} {% endfor %}</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

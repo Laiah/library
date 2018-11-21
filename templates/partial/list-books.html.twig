@@ -16,7 +16,7 @@
                     <h5 class="card-title">{{ shortTitle(book, 25) }}</h5>
 
                     <p class="card-text">{% for category in book.categories %}#{{ category.name }} {% endfor %}</p>
-                    <a href="#" class="btn btn-primary">Voir le détail</a>
+                    <a href="{{ path('ekinotheque_book_show', {bookId: book.id}) }}" class="btn btn-primary">Voir le détail</a>
                 </div>
             </div>
             <!-- FIN COMPOSANT CARD -->

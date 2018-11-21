@@ -23,10 +23,9 @@
                     {% endfor %}
                 </span>
 
-                <!-- TODO: If book is not available, disable buttons -->
+                <!-- TODO: If book is not available, disable button -->
                 <div class="mx-auto my-4">
-                    <a href="" class="btn btn-primary mr-4 shadow">Emprunter le livre chez soi</a>
-                    <a href="" class="btn btn-outline-primary shadow">Emprunter le livre au bench</a>
+                    <a href="{{ path('ekinotheque_book_borrow', {bookId: book.id}) }}" class="btn btn-primary mr-4 shadow">Emprunter le livre</a>
                 </div>
             </div>
 
@@ -53,9 +52,9 @@
                         <tr class="border-bottom">
                             <td>{{ borrowedBook.user.firstname }}</td>
                             <td>{{ borrowedBook.user.username }}</td>
-                            <td>{{ borrowedBook.borrowingDateString }}</td>
-                            <td>{{ borrowedBook.returnDateString }}</td>
-                            <td>{{ borrowedBook.isBenchReservationString }}</td>
+                            <td>{{ borrowedBook.borrowingDate | date('d-m-Y') }}</td>
+                            <td>{{ borrowedBook.returnDate | date('d-m-Y') }}</td>
+                            <td>{{ borrowedBook.reservation }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

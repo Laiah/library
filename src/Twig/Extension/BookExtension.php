@@ -3,6 +3,7 @@
 namespace App\Twig\Extension;
 
 use App\Entity\Book;
+use App\Service\DateHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -13,9 +14,17 @@ use Twig\TwigFunction;
  */
 class BookExtension extends AbstractExtension {
 
+    private $dateHelper;
+
+    public function __construct(DateHelper $dateHelper)
+    {
+        $this->dateHelper = $dateHelper;
+    }
+
     public function getFunctions() {
         return [
-            new TwigFunction('shortTitle', [$this, 'shortenTitle'] )
+            new TwigFunction('shortTitle', [$this, 'shortenTitle']),
+            new TwigFunction('borrowingDate', [$this, 'getBorrowingDates']),
         ];
     }
 
@@ -32,5 +41,19 @@ class BookExtension extends AbstractExtension {
         }
 
         return substr($title, 0, $maxLength) . ' ...';
+    }
+
+    public function getBorrowingDates(Book $book): array
+    {
+        $dates = [];
+        foreach ($book->getBorrowedBooks() as $borrowedBook) {
+            $dates[] = $this->dateHelper->getDatesFromRange($borrowedBook->getBorrowingDate(), $borrowedBook->getReturnDate());
+        }
+
+        if (!empty($dates)) {
+            $dates =  array_merge(...$dates);
+        }
+
+        return $dates;
     }
 }
