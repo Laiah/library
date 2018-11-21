@@ -16,7 +16,6 @@ easy_admin:
           - { property: 'authors', type: 'array' }
           - 'owner'
           - { property: 'categories' }
-          - { property: 'borrowedBooks.user', label: 'Borrower' }
       form:
         fields:
           - { property: 'title', type_options: { required: true } }
