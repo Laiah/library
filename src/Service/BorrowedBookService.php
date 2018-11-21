@@ -42,6 +42,7 @@ class BorrowedBookService
             ->select(['bb.borrowingDate', 'bb.returnDate'])
             ->from('App\Entity\BorrowedBook', 'bb')
             ->where('bb.book = :book')
+            ->andWhere('bb.hasBeenValidated = true')
             ->andWhere('bb.borrowingDate between :start_date and :end_date')
             ->andWhere('bb.returnDate between :start_date and :end_date')
             ->setParameters(new ArrayCollection(

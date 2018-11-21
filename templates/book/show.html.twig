@@ -49,13 +49,15 @@
 
                 <tbody>
                     {% for borrowedBook in book.borrowedBooks %}
-                        <tr class="border-bottom">
-                            <td>{{ borrowedBook.user.firstname }}</td>
-                            <td>{{ borrowedBook.user.username }}</td>
-                            <td>{{ borrowedBook.borrowingDate | date('d-m-Y') }}</td>
-                            <td>{{ borrowedBook.returnDate | date('d-m-Y') }}</td>
-                            <td>{{ borrowedBook.reservation }}</td>
-                        </tr>
+                        {% if borrowedBook.hasBeenValidated %}
+                            <tr class="border-bottom">
+                                <td>{{ borrowedBook.user.firstname }}</td>
+                                <td>{{ borrowedBook.user.username }}</td>
+                                <td>{{ borrowedBook.borrowingDate | date('d-m-Y') }}</td>
+                                <td>{{ borrowedBook.returnDate | date('d-m-Y') }}</td>
+                                <td>{{ borrowedBook.reservation }}</td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
