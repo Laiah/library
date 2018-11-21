@@ -54,7 +54,8 @@ class HomeController extends AbstractController
     /**
      * @Route(
      *     name="ekinotheque_filter_book",
-     *     path="/{categoryId}"
+     *     path="/filter/{categoryId}",
+     *     requirements={"[0-9]+"}
      *     )
      * @ParamConverter(name="category", options={"mapping": {"categoryId" : "id"}})
      * @param \App\Entity\Category $category
