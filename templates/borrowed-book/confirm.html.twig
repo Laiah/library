@@ -13,7 +13,7 @@
                     <p>Réservation n°{{ borrowedBook.id }}</p>
                     <p>Du {{ borrowedBook.borrowingDate|date('d/m/Y') }} au {{ borrowedBook.returnDate|date('d/m/Y') }}</p>
                     <p>Pour {{ borrowedBook.user.firstname }}</p>
-                    <p>Statut : en attente de confirmation</p>
+                    <p>Statut : {% if borrowedBook.validationStatus == constant('App\\Entity\\BorrowedBook::STATUS_ACCEPTED') %} Validé {% else %} En attente de confirmation {% endif %}</p>
                 </div>
                 <div class="col-6">
                     <h3>Le livre</h3>

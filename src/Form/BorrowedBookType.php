@@ -54,8 +54,8 @@ class BorrowedBookType extends AbstractType
                 ChoiceType::class,
                 [
                     'choices' => [
-                        'Maison' => BorrowedBook::Maison,
-                        'Bench' => BorrowedBook::Bench
+                        'Maison' => BorrowedBook::MAISON,
+                        'Bench' => BorrowedBook::BENCH
                     ]
                 ]
             )
