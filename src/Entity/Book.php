@@ -179,6 +179,16 @@ class Book
         return $this->borrowedBooks;
     }
 
+    public function addBorrowedBook(BorrowedBook $borrowedBook): self
+    {
+        if (!$this->borrowedBooks->contains($borrowedBook)) {
+            $this->borrowedBooks[] = $borrowedBook;
+            $borrowedBook->setBook($this);
+        }
+
+        return $this;
+    }
+
     public function getAuthors(): ?array
     {
         return $this->authors;
