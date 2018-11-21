@@ -47,7 +47,9 @@ class BookExtension extends AbstractExtension {
     {
         $dates = [];
         foreach ($book->getBorrowedBooks() as $borrowedBook) {
-            $dates[] = $this->dateHelper->getDatesFromRange($borrowedBook->getBorrowingDate(), $borrowedBook->getReturnDate());
+            if ($borrowedBook->getHasBeenValidated()) {
+                $dates[] = $this->dateHelper->getDatesFromRange($borrowedBook->getBorrowingDate(), $borrowedBook->getReturnDate());
+            }
         }
 
         if (!empty($dates)) {
