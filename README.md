@@ -9,9 +9,9 @@ Install dependencies with command line:
 composer install
 ```
 
-Create the SQLite schema
+Create the SQLite schema from migration files
 ```
-php bin/console doctrine:schema:create
+php bin/console doctrine:migrations:migrate
 ```
 
 The Sqlite database is created under `var/data.db`
