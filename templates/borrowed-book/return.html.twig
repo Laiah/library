@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="container mt-4">
+        <h1>Merci d'avoir rendu {{ borrowedBook.book.title }}</h1>
+
+        <p>{{ borrowedBook.book.owner.firstname }} va recevoir un mail pour le prévenir.</p>
+    </section>
+{% endblock %}
