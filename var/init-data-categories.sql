@@ -1,5 +1,5 @@
-INSERT INTO category (name) VALUES
-("Developement"),
-("Project Management"),
-("Mobile"),
-("Architecture");
+INSERT INTO category (name, slug) VALUES
+("Development", "development"),
+("Project Management", "project-management"),
+("Mobile", "mobile"),
+("Architecture", "architecture");
