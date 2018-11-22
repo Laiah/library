@@ -3,6 +3,7 @@
 namespace App\Twig\Extension;
 
 use App\Entity\Book;
+use App\Entity\BorrowedBook;
 use App\Service\DateHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -47,7 +48,7 @@ class BookExtension extends AbstractExtension {
     {
         $dates = [];
         foreach ($book->getBorrowedBooks() as $borrowedBook) {
-            if ($borrowedBook->getHasBeenValidated()) {
+            if ($borrowedBook->getValidationStatus() === BorrowedBook::STATUS_ACCEPTED) {
                 $dates[] = $this->dateHelper->getDatesFromRange($borrowedBook->getBorrowingDate(), $borrowedBook->getReturnDate());
             }
         }

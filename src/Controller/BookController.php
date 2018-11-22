@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Entity\BorrowedBook;
 use App\Form\BorrowedBookType;
 use App\Service\BorrowedBookService;
+use App\Service\MailService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +21,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class BookController extends AbstractController
 {
+
+    private $mailService;
+
+    public function __construct(MailService $mailService)
+    {
+        $this->mailService = $mailService;
+    }
 
     /**
      * @Route(name="ekinotheque_book_show", path="/{bookId}")
@@ -59,13 +68,23 @@ class BookController extends AbstractController
             if ($form->isValid()) {
                 $borrowedBook = $form->getData();
                 $book->addBorrowedBook($borrowedBook);
-                $borrowedBookService->save($borrowedBook);
 
-                return $this->render(
-                    'book/confirm.html.twig',
+                if ($borrowedBook->getReservation() === BorrowedBook::BENCH) {
+                    $borrowedBook->setValidationStatus(BorrowedBook::STATUS_ACCEPTED);
+                    $borrowedBook->getUser()->setHasBorrowed(true);
+                    $borrowedBookService->save($borrowedBook);
+                    $this->mailService->sendMailConfirmBorrower($borrowedBook);
+                    $this->mailService->sendMailInformOwner($borrowedBook);
+                } else {
+                    $borrowedBookService->save($borrowedBook);
+                    $this->mailService->sendMailAskOwner($borrowedBook);
+                }
+                
+                return $this->redirectToRoute(
+                    'ekinotheque_book_borrow_confirm',
                     [
-                        'book' => $book,
-                        'borrowedBook' => $borrowedBook,
+                        'bookId' => $book->getId(),
+                        'borrowedBookId' => $borrowedBook->getId(),
                     ]
                 );
             }

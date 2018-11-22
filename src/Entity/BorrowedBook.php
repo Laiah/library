@@ -12,8 +12,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class BorrowedBook
 {
-    const Maison = 'Maison';
-    const Bench = 'Bench';
+    const MAISON = 'Maison';
+    const BENCH = 'Bench';
+    const STATUS_WAITING = 'status_waiting';
+    const STATUS_ACCEPTED = 'status_accepted';
+    const STATUS_DECLINED = 'status_declined';
 
     /**
      * @ORM\Id()
@@ -56,20 +59,21 @@ class BorrowedBook
     private $hasBeenReturned;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=20)
      * @Assert\Choice({"Maison", "Bench"})
      */
     private $reservation;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=15)
+     * @Assert\Choice({"status_waiting", "status_accepted", "status_declined"})
      */
-    private $hasBeenValidated;
+    private $validationStatus;
 
     public function __construct()
     {
         $this->setHasBeenReturned(false);
-        $this->setHasBeenValidated(false);
+        $this->setValidationStatus(self::STATUS_WAITING);
     }
 
     public function getId(): int
@@ -149,14 +153,14 @@ class BorrowedBook
         return $this;
     }
 
-    public function getHasBeenValidated(): bool
+    public function getValidationStatus(): string
     {
-        return $this->hasBeenValidated;
+        return $this->validationStatus;
     }
 
-    public function setHasBeenValidated(bool $hasBeenValidated): self
+    public function setValidationStatus(string $validationStatus): self
     {
-        $this->hasBeenValidated = $hasBeenValidated;
+        $this->validationStatus = $validationStatus;
 
         return $this;
     }

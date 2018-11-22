@@ -49,7 +49,7 @@
 
                 <tbody>
                     {% for borrowedBook in book.borrowedBooks %}
-                        {% if borrowedBook.hasBeenValidated %}
+                        {% if borrowedBook.validationStatus == constant('App\\Entity\\BorrowedBook::STATUS_ACCEPTED') %}
                             <tr class="border-bottom">
                                 <td>{{ borrowedBook.user.firstname }}</td>
                                 <td>{{ borrowedBook.user.username }}</td>
