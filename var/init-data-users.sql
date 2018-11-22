@@ -33,7 +33,7 @@ INSERT INTO user (email, firstname, username, has_borrowed) VALUES
 ("clement.filleul@ekino.com","Clément","clement.filleul", 0),
 ("adrien.gautier@ekino.com","Adrien","Adrien", 0),
 ("maxime.nory@ekino.com","Maxime","Max", 0),
-("megan.arneau@ekino.com","Mégane","Megan", 0),
+("megan.arneau@ekino.com","Megan","Megan", 0),
 ("cecile.lesgourgues@ekino.com","Cécile","Cécile", 0),
 ("bastien.duran@ekino.com","Bastien","bastiend", 0),
 ("alex.labonne@ekino.com","Alex","AlexLab", 0),
