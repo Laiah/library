@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Book;
+use App\Entity\BorrowedBook;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Query\Parameter;
@@ -42,14 +43,15 @@ class BorrowedBookService
             ->select(['bb.borrowingDate', 'bb.returnDate'])
             ->from('App\Entity\BorrowedBook', 'bb')
             ->where('bb.book = :book')
-            ->andWhere('bb.hasBeenValidated = true')
+            ->andWhere('bb.validationStatus = :status')
             ->andWhere('bb.borrowingDate between :start_date and :end_date')
             ->andWhere('bb.returnDate between :start_date and :end_date')
             ->setParameters(new ArrayCollection(
                 [
                     new Parameter('book', $book->getId()),
                     new Parameter('start_date', $borrowedBook->getBorrowingDate()),
-                    new Parameter('end_date', $borrowedBook->getReturnDate())
+                    new Parameter('end_date', $borrowedBook->getReturnDate()),
+                    new Parameter('status', BorrowedBook::STATUS_ACCEPTED),
                 ]
             )
         );
