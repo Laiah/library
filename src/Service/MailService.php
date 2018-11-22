@@ -50,7 +50,7 @@ class MailService
     }
 
     /**
-     * Ask owner for home reservation
+     * Ask owner for home reservation.
      */
     public function sendMailAskOwner(BorrowedBook $borrowedBook)
     {
@@ -63,7 +63,7 @@ class MailService
     }
 
     /**
-     * Confirm owner for home reservation
+     * Confirm owner for home reservation.
      */
     public function sendMailConfirmOwner(BorrowedBook $borrowedBook)
     {
@@ -76,7 +76,7 @@ class MailService
     }
 
     /**
-     * Decline home reservation for borrower
+     * Decline home reservation for borrower.
      */
     public function sendMailDeclineBorrower(BorrowedBook $borrowedBook)
     {
@@ -84,6 +84,19 @@ class MailService
             ->setFrom(self::SENDER)
             ->setTo($borrowedBook->getUser()->getEmail())
             ->setBody($this->twig->render('mail/borrow_decline.html.twig', ['borrowedBook' => $borrowedBook]), 'text/html');
+
+        $this->mailer->send($message);
+    }
+
+    /**
+     * Inform the owner that the book was returned.
+     */
+    public function sendMailReturnOwner(BorrowedBook $borrowedBook)
+    {
+        $message = (new \Swift_Message("Retour de " . $borrowedBook->getBook()->getTitle()))
+            ->setFrom(self::SENDER)
+            ->setTo($borrowedBook->getBook()->getOwner()->getEmail())
+            ->setBody($this->twig->render('mail/borrow_return.html.twig', ['borrowedBook' => $borrowedBook]), 'text/html');
 
         $this->mailer->send($message);
     }

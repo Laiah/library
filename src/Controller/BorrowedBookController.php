@@ -92,4 +92,23 @@ class BorrowedBookController extends AbstractController
 
         return $this->render('borrowed-book/decline.html.twig');
     }
+
+    /**
+     * @Route(name="ekinotheque_book_borrow_return", path="/return/{borrowedBookId}")
+     * @ParamConverter(name="borrowedBook", options={"mapping": {"borrowedBookId" : "id"}})
+     * @param \App\Entity\BorrowedBook $borrowedBook
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function return(BorrowedBook $borrowedBook): Response
+    {
+        if (!$borrowedBook->getHasBeenReturned()) {
+            $this->mailService->sendMailReturnOwner($borrowedBook);
+        }
+
+        $borrowedBook->setHasBeenReturned(true);
+        $this->borrowedBookService->save($borrowedBook);
+
+        return $this->render('borrowed-book/return.html.twig', ['borrowedBook' => $borrowedBook]);
+    }
 }

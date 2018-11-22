@@ -1,0 +1,5 @@
+{% trans_default_domain 'book' %}
+
+<span class="badge badge-pill {% if available %}badge-primary{% else %}badge-danger{% endif %}">
+    {{ ('label.' ~ (available ? 'available' : 'not_available'))|trans }}
+</span>

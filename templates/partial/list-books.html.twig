@@ -5,8 +5,7 @@
             <!-- DÉBUT COMPOSANT CARD -->
             <div class="card mb-3" style="width: 18rem;">
                 <div class="card-top">
-                    <!-- TODO: change "Disponible" with real book disponibility -->
-                    <span class="badge badge-pill badge-primary">Disponible</span>
+                    {% include 'partial/book-availability.html.twig' with {available: book is available} %}
                     <img class="card-img-top"
                          src="{{ book.cover }}"
                          alt="Card image cap"

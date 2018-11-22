@@ -4,9 +4,11 @@ namespace App\Twig\Extension;
 
 use App\Entity\Book;
 use App\Entity\BorrowedBook;
+use App\Service\BookService;
 use App\Service\DateHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Twig\TwigTest;
 
 /**
  * Class BookExtension.
@@ -17,15 +19,26 @@ class BookExtension extends AbstractExtension {
 
     private $dateHelper;
 
-    public function __construct(DateHelper $dateHelper)
+    private $bookService;
+
+    public function __construct(DateHelper $dateHelper, BookService $bookService)
     {
         $this->dateHelper = $dateHelper;
+        $this->bookService = $bookService;
     }
 
     public function getFunctions() {
         return [
             new TwigFunction('shortTitle', [$this, 'shortenTitle']),
             new TwigFunction('borrowingDate', [$this, 'getBorrowingDates']),
+            new TwigFunction('bookAvailability', [$this, 'bookAvailability']),
+        ];
+    }
+
+    public function getTests()
+    {
+        return [
+            new TwigTest('available', [$this, 'isBookAvailable'])
         ];
     }
 
@@ -58,5 +71,10 @@ class BookExtension extends AbstractExtension {
         }
 
         return $dates;
+    }
+
+    public function isBookAvailable(Book $book)
+    {
+        return $this->bookService->isBookAvailable($book);
     }
 }
