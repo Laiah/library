@@ -54,10 +54,10 @@ class HomeController extends AbstractController
     /**
      * @Route(
      *     name="ekinotheque_filter_book",
-     *     path="/filter/{categoryId}",
-     *     requirements={"[0-9]+"}
+     *     path="/filter/{categorySlug}",
+     *     requirements={"[a-z]+"}
      *     )
-     * @ParamConverter(name="category", options={"mapping": {"categoryId" : "id"}})
+     * @ParamConverter(name="category", options={"mapping": {"categorySlug" : "slug"}})
      * @param \App\Entity\Category $category
      *
      * @return \Symfony\Component\HttpFoundation\Response

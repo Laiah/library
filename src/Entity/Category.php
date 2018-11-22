@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * The book's category.
@@ -30,6 +31,17 @@ class Category
      * @ORM\ManyToMany(targetEntity="App\Entity\Book", mappedBy="categories", cascade={"persist"})
      */
     private $books;
+
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
 
     public function __toString(): string
     {

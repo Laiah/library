@@ -8,7 +8,7 @@
             </button>
             <div class="dropdown-menu">
                 {% for category in categories %}
-                    <a class="dropdown-item" href="{{ path('ekinotheque_filter_book', {categoryId: category.id}) }}">{{ category.name }}</a>
+                    <a class="dropdown-item" href="{{ path('ekinotheque_filter_book', {categorySlug: category.slug}) }}">{{ category.name }}</a>
                 {% endfor %}
             </div>
         </div>

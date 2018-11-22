@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class BookController.
@@ -21,8 +22,8 @@ class BookController extends AbstractController
 {
 
     /**
-     * @Route(name="ekinotheque_book_show", path="/{bookId}")
-     * @ParamConverter(name="book", options={"mapping": {"bookId" : "id"}})
+     * @Route(name="ekinotheque_book_show", path="/{bookSlug}")
+     * @ParamConverter(name="book", options={"mapping": {"bookSlug" : "slug"}})
      * @param \App\Entity\Book $book
      *
      * @return \Symfony\Component\HttpFoundation\Response
