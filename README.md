@@ -61,3 +61,12 @@ php bin/console security:encode-password
 and copy/paste the value of "Encoded password" key to your new account.
 
 The encoding actually used is Bcrypt with a cost of 12.
+
+## Import initial data
+
+Import base users (team Bordeaux) and base categories
+
+```
+php bin/console doctrine:database:import ./var/init-data-users.sql
+php bin/console doctrine:database:import ./var/init-data-categories.sql
+```
