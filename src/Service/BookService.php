@@ -13,11 +13,13 @@ use Doctrine\ORM\Query\Parameter;
  *
  * @package App\Service
  */
-class BookService {
+class BookService
+{
 
     private $em;
 
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em)
+    {
         $this->em = $em;
     }
 
@@ -31,21 +33,23 @@ class BookService {
         $qb = $this->em->createQueryBuilder();
 
         return 0 === intval($qb
-            ->select($qb->expr()->count('bb'))
-            ->from('App\Entity\BorrowedBook', 'bb')
-            ->where('bb.book = :book')
-            ->andWhere('bb.validationStatus = :status')
-            ->andWhere('bb.hasBeenReturned = false')
-            ->andWhere('bb.borrowingDate <= :date')
-            ->setParameters(new ArrayCollection(
-                    [
-                        new Parameter('book', $book->getId()),
-                        new Parameter('status', BorrowedBook::STATUS_ACCEPTED),
-                        new Parameter('date', new \DateTime()),
-                    ]
+                ->select($qb->expr()->count('bb'))
+                ->from('App\Entity\BorrowedBook', 'bb')
+                ->where('bb.book = :book')
+                ->andWhere('bb.validationStatus = :status')
+                ->andWhere('bb.hasBeenReturned = false')
+                ->andWhere('bb.borrowingDate <= :date')
+                ->setParameters(
+                    new ArrayCollection(
+                        [
+                            new Parameter('book', $book->getId()),
+                            new Parameter('status',
+                                BorrowedBook::STATUS_ACCEPTED),
+                            new Parameter('date', new \DateTime()),
+                        ]
+                    )
                 )
-            )
-            ->getQuery()
-            ->getSingleScalarResult());
+                ->getQuery()
+                ->getSingleScalarResult());
     }
 }
