@@ -9,7 +9,7 @@
             <div class="dropdown-menu">
                 {% for category in categories %}
                     <a class="dropdown-item" href="{{ path('ekinotheque_filter_book', {categorySlug: category.slug}) }}">
-                        {{ category.parent_id != 0 ? ''|strpad(category.level, '-') ~ '>' : '' }}{{ category.name }}
+                        {{ category.parent_id is not null ? ''|strpad(category.level, '-') ~ '>' : '' }}{{ category.name }}
                     </a>
                 {% endfor %}
             </div>

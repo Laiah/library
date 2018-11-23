@@ -40,14 +40,14 @@ class Category
 
     /**
      * @ORM\ManyToOne(targetEntity="Category")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
      */
-    private $parent = 0;
+    private $parent;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $sort_order = 0;
+    private $sortOrder = 0;
 
     public function getSlug(): string
     {
@@ -98,12 +98,12 @@ class Category
 
     public function getSortOrder(): ?int
     {
-        return $this->sort_order;
+        return $this->sortOrder;
     }
 
-    public function setSortOrder(int $sort_order): self
+    public function setSortOrder(int $sortOrder): self
     {
-        $this->sort_order = $sort_order;
+        $this->sortOrder = $sortOrder;
 
         return $this;
     }
