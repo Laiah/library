@@ -4,28 +4,43 @@ namespace App\Twig\Extension;
 
 use App\Entity\Book;
 use App\Entity\BorrowedBook;
+use App\Service\BookService;
 use App\Service\DateHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Twig\TwigTest;
 
 /**
  * Class BookExtension.
  *
  * @package App\Twig\Extension
  */
-class BookExtension extends AbstractExtension {
+class BookExtension extends AbstractExtension
+{
 
     private $dateHelper;
 
-    public function __construct(DateHelper $dateHelper)
+    private $bookService;
+
+    public function __construct(DateHelper $dateHelper, BookService $bookService)
     {
         $this->dateHelper = $dateHelper;
+        $this->bookService = $bookService;
     }
 
-    public function getFunctions() {
+    public function getFunctions()
+    {
         return [
             new TwigFunction('shortTitle', [$this, 'shortenTitle']),
             new TwigFunction('borrowingDate', [$this, 'getBorrowingDates']),
+            new TwigFunction('bookAvailability', [$this, 'bookAvailability']),
+        ];
+    }
+
+    public function getTests()
+    {
+        return [
+            new TwigTest('available', [$this, 'isBookAvailable'])
         ];
     }
 
@@ -49,7 +64,10 @@ class BookExtension extends AbstractExtension {
         $dates = [];
         foreach ($book->getBorrowedBooks() as $borrowedBook) {
             if ($borrowedBook->getValidationStatus() === BorrowedBook::STATUS_ACCEPTED) {
-                $dates[] = $this->dateHelper->getDatesFromRange($borrowedBook->getBorrowingDate(), $borrowedBook->getReturnDate());
+                $dates[] = $this->dateHelper->getDatesFromRange(
+                    $borrowedBook->getBorrowingDate(),
+                    $borrowedBook->getReturnDate()
+                );
             }
         }
 
@@ -58,5 +76,10 @@ class BookExtension extends AbstractExtension {
         }
 
         return $dates;
+    }
+
+    public function isBookAvailable(Book $book)
+    {
+        return $this->bookService->isBookAvailable($book);
     }
 }

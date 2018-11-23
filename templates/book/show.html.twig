@@ -8,8 +8,7 @@
             <img src="{{ book.cover }}" class="h-100 col-2">
 
             <div class="col-10">
-                <!-- TODO: change "Disponible" with real book disponibility -->
-                <span class="badge badge-pill badge-primary">Disponible</span>
+                {% include 'partial/book-availability.html.twig' with {available: book is available} %}
                 <h1>{{ book.title }}</h1>
                 <p>Mis à disposition par : {{ book.owner }}</p>
 
@@ -23,9 +22,11 @@
                     {% endfor %}
                 </span>
 
-                <!-- TODO: If book is not available, disable button -->
                 <div class="mx-auto my-4">
-                    <a href="{{ path('ekinotheque_book_borrow', {bookId: book.id}) }}" class="btn btn-primary mr-4 shadow">Emprunter le livre</a>
+                    <a href="{{ path('ekinotheque_book_borrow', {bookId: book.id}) }}"
+                       class="btn mr-4 shadow btn-primary">
+                        Emprunter le livre
+                    </a>
                 </div>
             </div>
 

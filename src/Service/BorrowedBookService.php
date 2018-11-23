@@ -5,7 +5,7 @@ namespace App\Service;
 use App\Entity\Book;
 use App\Entity\BorrowedBook;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Parameter;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
@@ -19,7 +19,8 @@ class BorrowedBookService
 {
     private $em;
 
-    public function __construct(ObjectManager $em) {
+    public function __construct(EntityManagerInterface $em)
+    {
         $this->em = $em;
     }
 
@@ -39,8 +40,8 @@ class BorrowedBookService
     {
         $borrowedBook = $form->getData();
 
-        $qb = $this->em->createQueryBuilder()
-            ->select(['bb.borrowingDate', 'bb.returnDate'])
+        $qb = $this->em->createQueryBuilder();
+        $result = $qb->select($qb->expr()->count('bb'))
             ->from('App\Entity\BorrowedBook', 'bb')
             ->where('bb.book = :book')
             ->andWhere('bb.validationStatus = :status')
@@ -53,14 +54,14 @@ class BorrowedBookService
                     new Parameter('end_date', $borrowedBook->getReturnDate()),
                     new Parameter('status', BorrowedBook::STATUS_ACCEPTED),
                 ]
-            )
-        );
+            ))
+            ->getQuery()
+            ->getSingleScalarResult();
 
-        $q = $qb->getQuery();
-        $results = $q->execute();
-
-        if (!empty($results)) {
-            $dates = $borrowedBook->getBorrowingDate()->format('d-m-Y') . " - " . $borrowedBook->getReturnDate()->format('d-m-Y');
+        if (0 !== intval($result)) {
+            $dates = $borrowedBook->getBorrowingDate()->format('d-m-Y')
+                . " - " .
+                $borrowedBook->getReturnDate()->format('d-m-Y');
             $form->addError(new FormError(sprintf("Ce livre n'est pas disponible sur ces dates (%s).", $dates)));
         }
     }
