@@ -22,4 +22,9 @@ class CategoryService {
     {
         return $this->em->getRepository(Category::class)->findAll();
     }
+
+    public function getCategoriesTree(): array
+    {
+        return $this->em->getRepository(Category::class)->getCategoriesTree();
+    }
 }

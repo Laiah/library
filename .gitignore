@@ -6,6 +6,7 @@
 /var/cache
 /var/log
 /var/*.db
+/var/*.db-journal
 /vendor/
 ###< symfony/framework-bundle ###
 
