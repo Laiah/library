@@ -30,7 +30,7 @@ class HomeController extends AbstractController
      */
     public function __construct(CategoryService $categoryService)
     {
-        $this->categories = $categoryService->findAll();
+        $this->categories = $categoryService->getCategoriesTree();
     }
 
     /**

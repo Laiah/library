@@ -38,6 +38,17 @@ class Category
      */
     private $slug;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
+     */
+    private $parent;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $sortOrder = 0;
+
     public function getSlug(): string
     {
         return $this->slug;
@@ -72,4 +83,29 @@ class Category
     {
         return $this->books;
     }
+
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function getSortOrder(): ?int
+    {
+        return $this->sortOrder;
+    }
+
+    public function setSortOrder(int $sortOrder): self
+    {
+        $this->sortOrder = $sortOrder;
+
+        return $this;
+    }
+
 }

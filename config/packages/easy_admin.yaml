@@ -46,6 +46,6 @@ easy_admin:
       class: App\Entity\Category
       label: 'Categories'
       list:
-        fields: ['id', 'name']
+        fields: ['id', 'parent', 'name']
       form:
-        fields: ['name']
+        fields: ['name', 'parent']

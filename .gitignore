@@ -3,9 +3,8 @@
 /.env.local
 /.env.*.local
 /public/bundles/
-/var/cache
-/var/log
-/var/*.db
+/var
+!/var/*.sql
 /vendor/
 ###< symfony/framework-bundle ###
 
