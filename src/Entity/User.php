@@ -63,7 +63,8 @@ class User
         $this->setHasBorrowed(false);
     }
 
-    public function __toString(): string {
+    public function __toString(): string
+    {
         return $this->firstname . ' - @' . $this->username;
     }
 
@@ -122,7 +123,7 @@ class User
 
     public function getUser(): string
     {
-      return $this->firstname . ' - @' . $this->username;
+        return $this->firstname . ' - @' . $this->username;
     }
 
     /**

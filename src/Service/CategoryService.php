@@ -10,11 +10,13 @@ use Doctrine\Common\Persistence\ObjectManager;
  *
  * @package App\Service
  */
-class CategoryService {
+class CategoryService
+{
 
     private $em;
 
-    public function __construct(ObjectManager $em) {
+    public function __construct(ObjectManager $em)
+    {
         $this->em = $em;
     }
 

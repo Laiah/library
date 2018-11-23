@@ -15,7 +15,8 @@ use Twig\TwigTest;
  *
  * @package App\Twig\Extension
  */
-class BookExtension extends AbstractExtension {
+class BookExtension extends AbstractExtension
+{
 
     private $dateHelper;
 
@@ -27,7 +28,8 @@ class BookExtension extends AbstractExtension {
         $this->bookService = $bookService;
     }
 
-    public function getFunctions() {
+    public function getFunctions()
+    {
         return [
             new TwigFunction('shortTitle', [$this, 'shortenTitle']),
             new TwigFunction('borrowingDate', [$this, 'getBorrowingDates']),
@@ -62,7 +64,10 @@ class BookExtension extends AbstractExtension {
         $dates = [];
         foreach ($book->getBorrowedBooks() as $borrowedBook) {
             if ($borrowedBook->getValidationStatus() === BorrowedBook::STATUS_ACCEPTED) {
-                $dates[] = $this->dateHelper->getDatesFromRange($borrowedBook->getBorrowingDate(), $borrowedBook->getReturnDate());
+                $dates[] = $this->dateHelper->getDatesFromRange(
+                    $borrowedBook->getBorrowingDate(),
+                    $borrowedBook->getReturnDate()
+                );
             }
         }
 

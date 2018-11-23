@@ -31,7 +31,13 @@ class MailService
         $message = (new \Swift_Message("Confirmation de réservation de " . $borrowedBook->getBook()->getTitle()))
             ->setFrom(self::SENDER)
             ->setTo($borrowedBook->getUser()->getEmail())
-            ->setBody($this->twig->render('mail/borrow_confirm.html.twig', ['borrowedBook' => $borrowedBook]), 'text/html');
+            ->setBody(
+                $this->twig->render(
+                    'mail/borrow_confirm.html.twig',
+                    ['borrowedBook' => $borrowedBook]
+                ),
+                'text/html'
+            );
 
         $this->mailer->send($message);
     }
@@ -44,7 +50,13 @@ class MailService
         $message = (new \Swift_Message("Information de réservation de " . $borrowedBook->getBook()->getTitle()))
             ->setFrom(self::SENDER)
             ->setTo($borrowedBook->getBook()->getOwner()->getEmail())
-            ->setBody($this->twig->render('mail/borrow_inform.html.twig', ['borrowedBook' => $borrowedBook]), 'text/html');
+            ->setBody(
+                $this->twig->render(
+                    'mail/borrow_inform.html.twig',
+                    ['borrowedBook' => $borrowedBook]
+                ),
+                'text/html'
+            );
 
         $this->mailer->send($message);
     }
@@ -57,7 +69,13 @@ class MailService
         $message = (new \Swift_Message("Demande de réservation de " . $borrowedBook->getBook()->getTitle()))
             ->setFrom(self::SENDER)
             ->setTo($borrowedBook->getBook()->getOwner()->getEmail())
-            ->setBody($this->twig->render('mail/borrow_ask.html.twig', ['borrowedBook' => $borrowedBook]), 'text/html');
+            ->setBody(
+                $this->twig->render(
+                    'mail/borrow_ask.html.twig',
+                    ['borrowedBook' => $borrowedBook]
+                ),
+                'text/html'
+            );
 
         $this->mailer->send($message);
     }
@@ -70,7 +88,13 @@ class MailService
         $message = (new \Swift_Message("Confirmation de réservation de " . $borrowedBook->getBook()->getTitle()))
             ->setFrom(self::SENDER)
             ->setTo($borrowedBook->getBook()->getOwner()->getEmail())
-            ->setBody($this->twig->render('mail/borrow_confirm_owner.html.twig', ['borrowedBook' => $borrowedBook]), 'text/html');
+            ->setBody(
+                $this->twig->render(
+                    'mail/borrow_confirm_owner.html.twig',
+                    ['borrowedBook' => $borrowedBook]
+                ),
+                'text/html'
+            );
 
         $this->mailer->send($message);
     }
@@ -83,7 +107,13 @@ class MailService
         $message = (new \Swift_Message("Refus de l'emprunt de " . $borrowedBook->getBook()->getTitle()))
             ->setFrom(self::SENDER)
             ->setTo($borrowedBook->getUser()->getEmail())
-            ->setBody($this->twig->render('mail/borrow_decline.html.twig', ['borrowedBook' => $borrowedBook]), 'text/html');
+            ->setBody(
+                $this->twig->render(
+                    'mail/borrow_decline.html.twig',
+                    ['borrowedBook' => $borrowedBook]
+                ),
+                'text/html'
+            );
 
         $this->mailer->send($message);
     }
@@ -96,7 +126,13 @@ class MailService
         $message = (new \Swift_Message("Retour de " . $borrowedBook->getBook()->getTitle()))
             ->setFrom(self::SENDER)
             ->setTo($borrowedBook->getBook()->getOwner()->getEmail())
-            ->setBody($this->twig->render('mail/borrow_return.html.twig', ['borrowedBook' => $borrowedBook]), 'text/html');
+            ->setBody(
+                $this->twig->render(
+                    'mail/borrow_return.html.twig',
+                    ['borrowedBook' => $borrowedBook]
+                ),
+                'text/html'
+            );
 
         $this->mailer->send($message);
     }
