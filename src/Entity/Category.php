@@ -72,5 +72,4 @@ class Category
     {
         return $this->books;
     }
-
 }

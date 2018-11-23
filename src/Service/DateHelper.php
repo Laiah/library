@@ -31,7 +31,7 @@ class DateHelper
         $period = new DatePeriod($start, $interval, $end);
 
         /** @var \DateTime $date */
-        foreach($period as $date) {
+        foreach ($period as $date) {
             $dates[] = $date->format($format);
         }
 

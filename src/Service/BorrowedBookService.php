@@ -19,7 +19,8 @@ class BorrowedBookService
 {
     private $em;
 
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em)
+    {
         $this->em = $em;
     }
 
@@ -58,7 +59,9 @@ class BorrowedBookService
             ->getSingleScalarResult();
 
         if (0 !== intval($result)) {
-            $dates = $borrowedBook->getBorrowingDate()->format('d-m-Y') . " - " . $borrowedBook->getReturnDate()->format('d-m-Y');
+            $dates = $borrowedBook->getBorrowingDate()->format('d-m-Y')
+                . " - " .
+                $borrowedBook->getReturnDate()->format('d-m-Y');
             $form->addError(new FormError(sprintf("Ce livre n'est pas disponible sur ces dates (%s).", $dates)));
         }
     }
