@@ -8,5 +8,5 @@ INSERT INTO category (id, parent_id, sort_order, name, slug) VALUES
 (8, 1, 3, "PHP", "php"),
 (9, 1, 4, "Android", "android"),
 (10, 1, 1, "iOS", "ios"),
-(11, 10, 2, "Objective-C", "objectiv-c"),
+(11, 10, 2, "Objective-C", "objective-c"),
 (12, 10, 3, "Swift", "swift");
