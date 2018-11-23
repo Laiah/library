@@ -10,21 +10,31 @@
             <div class="col-10">
                 {% include 'partial/book-availability.html.twig' with {available: book is available} %}
                 <h1>{{ book.title }}</h1>
-                <p>Mis à disposition par : {{ book.owner }}</p>
+                <p>Mis à disposition par : {{ book.owner }} ({{ book.location }})</p>
+
+                {% for category in book.categories %}
+                    <a href="{{ path('ekinotheque_filter_book', {'categorySlug': category.slug}) }}">#{{ category }}</a>
+                {% endfor %}
 
                 <hr>
 
-                <p>{{ book.description }}</p>
-
-                <span class="font-weight-bold">
-                    {% for category in book.categories %}
-                        #{{ category }}
-                    {% endfor %}
-                </span>
-
+                <div class="row">
+                    {% set hasComments = book.comments is not empty %}
+                    <div class="col-md-{{ hasComments ? 8 : 12 }}">
+                        <p>{{ book.description|nl2br }}</p>
+                    </div>
+                    {% if hasComments %}
+                    <div class="col-md-4">
+                        <div class="alert alert-warning" role="alert">
+                            <strong>Conditions d'emprunt</strong> <br/>
+                            {{ book.comments|nl2br }}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                
                 <div class="mx-auto my-4">
-                    <a href="{{ path('ekinotheque_book_borrow', {bookId: book.id}) }}"
-                       class="btn mr-4 shadow btn-primary">
+                    <a href="{{ path('ekinotheque_book_borrow', {bookId: book.id}) }}" class="btn mr-4 shadow btn-primary">
                         Emprunter le livre
                     </a>
                 </div>
