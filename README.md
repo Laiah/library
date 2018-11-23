@@ -38,7 +38,7 @@ Administration area is protected by Basic-Auth.
 
 To add a admin account, you can edit the "memory" section in security.yml file:
 
-```
+```yml
 security:
     providers:
         in_memory:
