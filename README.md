@@ -70,3 +70,13 @@ Import base users (team Bordeaux) and base categories
 php bin/console doctrine:database:import ./var/init-data-users.sql
 php bin/console doctrine:database:import ./var/init-data-categories.sql
 ```
+
+## Send reminder email
+
+You can send reminder email to the borrower of a book with this command line :
+```
+php bin/console app:send-reminder-email $numberDays
+```
+You need to replace $numberDays with the number of days before the due date.
+(e.g. if we are on the 23rd, `php bin/console app:send-reminder-email 4` will send email
+for the books that need to be returned on the 27th)
