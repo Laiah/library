@@ -1,0 +1,10 @@
+easy_admin:
+  design:
+    menu:
+      - { label: 'Dashboard', route: 'admin_dashboard', default: true }
+      - label: 'Biblio'
+      - { entity: 'Book', icon: 'book', params: { sortField: 'id', sortDirection: 'DESC' }}
+      - { entity: 'Category', icon: 'hashtag'}
+      - label: 'App'
+      - { entity: 'AllUsers', label: 'All users', icon: 'user', params: { sortField: 'firstname', sortDirection: 'ASC' }}
+      - { entity: 'UsersHasBorrowed', label: 'Borrowers', icon: 'calendar', params: { sortField: 'firstname', sortDirection: 'ASC' }}

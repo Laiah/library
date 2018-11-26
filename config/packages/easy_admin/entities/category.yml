@@ -1,0 +1,9 @@
+easy_admin:
+  entities:
+    Category:
+      class: App\Entity\Category
+      label: 'Categories'
+      list:
+        fields: ['id', 'parent', 'name']
+      form:
+        fields: ['name', 'parent']
