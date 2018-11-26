@@ -80,12 +80,12 @@ class BorrowedBook
         $this->setValidationStatus(self::STATUS_WAITING);
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getBook(): Book
+    public function getBook(): ?Book
     {
         return $this->book;
     }

@@ -3,19 +3,13 @@ easy_admin:
     AllUsers:
       class: App\Entity\User
       label: 'Users'
-      list:
-        fields:
-          - 'id'
-          - 'firstname'
-          - 'username'
-          - 'hasBorrowed'
       form:
         fields:
           - { property: 'firstname', type_options: { required: true } }
           - { property: 'username', type_options: { required: true } }
           - { property: 'email', type: 'email', type_options: { required: true } }
-          - { property: 'hasBorrowed', label: 'Has borrowed a book' }
     UsersHasBorrowed:
       class: App\Entity\User
+      controller: App\Controller\Admin\UserAdminController
       list:
-        dql_filter: 'entity.hasBorrowed = 1'
+        dql_filter: 'bb.id IS NOT NULL AND bb.hasBeenReturned = 0'

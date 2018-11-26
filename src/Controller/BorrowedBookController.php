@@ -67,7 +67,6 @@ class BorrowedBookController extends AbstractController
         }
 
         $borrowedBook->setValidationStatus(BorrowedBook::STATUS_ACCEPTED);
-        $borrowedBook->getUser()->setHasBorrowed(true);
         $this->borrowedBookService->save($borrowedBook);
 
         return $this->render('borrowed-book/accept.html.twig');
