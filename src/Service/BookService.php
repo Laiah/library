@@ -28,6 +28,14 @@ class BookService
         return $this->em->getRepository(Book::class)->findAll();
     }
 
+    /**
+     * Return true if the book is available.
+     *
+     * @param \App\Entity\Book $book
+     *
+     * @return bool
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function isBookAvailable(Book $book): bool
     {
         $qb = $this->em->createQueryBuilder();
