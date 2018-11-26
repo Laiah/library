@@ -97,4 +97,36 @@ class BorrowedBookService
             $form->addError(new FormError(sprintf("Ce livre n'est pas disponible sur ces dates (%s).", $dates)));
         }
     }
+
+    /**
+     * Get all the unavailable books that must be returned in $numberDays days.
+     *
+     * @param int $numberDays
+     * The number of days before the returnDate.
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public function getAllBorrowedBooks(int $numberDays): array
+    {
+        $date = new \DateTime();
+        $date->add(new \DateInterval('P' . $numberDays . 'D'));
+
+        $qb = $this->em->createQueryBuilder();
+
+        return $qb->select(['bb'])
+            ->from('App\Entity\BorrowedBook', 'bb')
+            ->where('bb.validationStatus = :status')
+            ->andWhere('bb.hasBeenReturned = false')
+            ->andWhere('bb.returnDate = :date')
+            ->setParameters(new ArrayCollection(
+                    [
+                        new Parameter('status', BorrowedBook::STATUS_ACCEPTED),
+                        new Parameter('date', $date->format('Y-m-d')),
+                    ]
+                )
+            )
+            ->getQuery()
+            ->getResult();
+    }
 }

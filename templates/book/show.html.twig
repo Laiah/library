@@ -21,13 +21,13 @@
                 <div class="row">
                     {% set hasComments = book.comments is not empty %}
                     <div class="col-md-{{ hasComments ? 8 : 12 }}">
-                        <p>{{ book.description|nl2br }}</p>
+                        <p>{{ book.description|markdown }}</p>
                     </div>
                     {% if hasComments %}
                     <div class="col-md-4">
                         <div class="alert alert-warning" role="alert">
                             <strong>Conditions d'emprunt</strong> <br/>
-                            {{ book.comments|nl2br }}
+                            {{ book.comments|markdown }}
                         </div>
                     </div>
                     {% endif %}
