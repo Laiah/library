@@ -81,6 +81,16 @@ class Book
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $comments;
+
+    /**
+     * @ORM\Column(type="string", length=40, nullable=true)
+     */
+    private $location = "Bordeaux";
+
     public function getSlug(): string
     {
         return $this->slug;
@@ -209,6 +219,30 @@ class Book
     public function setAuthors(array $authors): self
     {
         $this->authors = $authors;
+
+        return $this;
+    }
+
+    public function getComments(): ?string
+    {
+        return $this->comments;
+    }
+
+    public function setComments(?string $comments): self
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): self
+    {
+        $this->location = $location;
 
         return $this;
     }
