@@ -2,7 +2,6 @@
 
 namespace App\Command;
 
-use App\Service\BookService;
 use App\Service\BorrowedBookService;
 use App\Service\MailService;
 use Symfony\Component\Console\Command\Command;
@@ -20,8 +19,6 @@ class SendReminderMailCommand extends Command
 {
     private $mailService;
 
-    private $bookService;
-
     private $borrowedBookService;
 
     protected function configure()
@@ -32,10 +29,9 @@ class SendReminderMailCommand extends Command
             ->addArgument('numberDays', InputArgument::REQUIRED, 'The number of days before the return date.');
     }
 
-    public function __construct(MailService $mailService, BookService $bookService, BorrowedBookService $borrowedBookService, ?string $name = null)
+    public function __construct(MailService $mailService, BorrowedBookService $borrowedBookService, ?string $name = null)
     {
         $this->mailService = $mailService;
-        $this->bookService = $bookService;
         $this->borrowedBookService = $borrowedBookService;
         parent::__construct($name);
     }
