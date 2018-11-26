@@ -136,4 +136,23 @@ class MailService
 
         $this->mailer->send($message);
     }
+
+    /**
+     * Send a reminder email to the borrower.
+     */
+    public function sendMailRemindBorrower(BorrowedBook $borrowedBook)
+    {
+        $message = (new \Swift_Message("Rappel: La date de rendu du livre approche vite !"))
+            ->setFrom(self::SENDER)
+            ->setTo($borrowedBook->getUser()->getEmail())
+            ->setBody(
+                $this->twig->render(
+                    'mail/borrow_reminder.html.twig',
+                    ['borrowedBook' => $borrowedBook]
+                ),
+                'text/html'
+            );
+
+        $this->mailer->send($message);
+    }
 }
