@@ -10,7 +10,7 @@
             <div class="col-10">
                 {% include 'partial/book-availability.html.twig' with {available: book is available} %}
                 <h1>{{ book.title }}</h1>
-                <p>Mis à disposition par : {{ book.owner }} ({{ book.location }})</p>
+                <p>Mis à disposition par : {{ book.owner }} {{ book.location is not null ? '('~ book.location ~')' : '' }}</p>
 
                 {% for category in book.categories %}
                     <a href="{{ path('ekinotheque_filter_book', {'categorySlug': category.slug}) }}">#{{ category }}</a>
@@ -32,7 +32,7 @@
                     </div>
                     {% endif %}
                 </div>
-                
+
                 <div class="mx-auto my-4">
                     <a href="{{ path('ekinotheque_book_borrow', {bookId: book.id}) }}" class="btn mr-4 shadow btn-primary">
                         Emprunter le livre
