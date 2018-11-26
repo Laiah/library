@@ -1,0 +1,3 @@
+0 15 * * * /usr/bin/php PROJECT/PATH/bin/console  app:send-reminder-email 5
+0 15 * * * /usr/bin/php PROJECT/PATH/bin/console  app:send-reminder-email 3
+0 15 * * * /usr/bin/php PROJECT/PATH/bin/console  app:send-reminder-email 1
