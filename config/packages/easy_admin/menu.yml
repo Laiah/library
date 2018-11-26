@@ -5,6 +5,7 @@ easy_admin:
       - label: 'Biblio'
       - { entity: 'Book', icon: 'book', params: { sortField: 'id', sortDirection: 'DESC' }}
       - { entity: 'Category', icon: 'hashtag'}
+      - { entity: 'BorrowedBook', label: 'Borrowed Books', icon: 'calendar'}
       - label: 'App'
       - { entity: 'AllUsers', label: 'All users', icon: 'user', params: { sortField: 'firstname', sortDirection: 'ASC' }}
       - { entity: 'UsersHasBorrowed', label: 'Borrowers', icon: 'calendar', params: { sortField: 'firstname', sortDirection: 'ASC' }}

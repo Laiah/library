@@ -7,6 +7,7 @@ use App\Entity\BorrowedBook;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Parameter;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * Class BookService.
@@ -28,6 +29,41 @@ class BookService
         return $this->em->getRepository(Book::class)->findAll();
     }
 
+    /**
+     * @return int
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function countAllBooks(): int
+    {
+        try {
+            $query = $this->em->createQuery('SELECT COUNT(u.id) FROM App\Entity\Book u');
+            return (int) $query->getSingleScalarResult();
+        } catch(NonUniqueResultException $e) {
+            return 0;
+        }
+    }
+
+    /**
+     * @param int $nbBooks
+     *
+     * @return array
+     */
+    public function retrieveLastBooksById(int $nbBooks = 5): array
+    {
+        $qb = $this->em->getRepository(Book::class)->createQueryBuilder('b')
+          ->orderBy('b.id', 'DESC')
+          ->setMaxResults($nbBooks)
+          ->getQuery();
+
+        return $qb->getResult();
+    }
+
+    /**
+     * @param \App\Entity\Book $book
+     *
+     * @return bool
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function isBookAvailable(Book $book): bool
     {
         $qb = $this->em->createQueryBuilder();

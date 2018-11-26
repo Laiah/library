@@ -1,0 +1,7 @@
+easy_admin:
+  entities:
+    BorrowedBook:
+      class: App\Entity\BorrowedBook
+      label: "Borrowed Books"
+      list:
+        fields: ['book', 'user', 'borrowingDate', 'returnDate', 'hasBeenReturned', 'reservation', 'validationStatus']

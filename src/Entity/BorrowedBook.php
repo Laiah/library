@@ -41,15 +41,19 @@ class BorrowedBook
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\Date()
+     * @Assert\Type(type="\DateTime")
      * @Assert\NotBlank()
+     *
+     * https://github.com/symfony/symfony/issues/22717#issuecomment-371993148
      */
     private $borrowingDate;
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\Date()
+     * @Assert\Type(type="\DateTime")
      * @Assert\NotBlank()
+     *
+     * https://github.com/symfony/symfony/issues/22717#issuecomment-371993148
      */
     private $returnDate;
 
@@ -163,5 +167,10 @@ class BorrowedBook
         $this->validationStatus = $validationStatus;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->book->getTitle() . '/' . $this->user->getUsername();
     }
 }
