@@ -1,0 +1,27 @@
+easy_admin:
+  entities:
+    Book:
+      class: App\Entity\Book
+      label: 'Books'
+      list:
+        fields:
+          - 'id'
+          - { property: 'title', sortable: true }
+          - { property: 'authors', type: 'array' }
+          - 'owner'
+          - 'location'
+          - { property: 'categories' }
+      form:
+        fields:
+          - { type: 'group', css_class: 'col-sm-8', label: 'Basic informations', icon: 'pencil' }
+          - { property: 'title', type_options: { required: true } }
+          - { property: 'categories', type: 'entity', type_options: { class: 'App\Entity\Category', multiple: true, required: true, by_reference: false } }
+          - { property: 'description', type_options: { required: true } }
+          - { type: 'group', css_class: 'col-sm-4', label: 'Book details', icon: 'book' }
+          - { property: 'authors', type_options: { required: true } }
+          - { property: 'cover', label: 'Cover (URL)', type_options: { required: true } }
+          - { property: 'isbn', label: 'ISBN (13)', type: 'text', type_options: { required: true } }
+          - { type: 'group', css_class: 'col-sm-8', label: 'User', icon: 'user' }
+          - { property: 'owner', label: 'Owner', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\User', required: true } }
+          - { property: 'location', label: 'Location' }
+          - { property: 'comments', labe: 'Comments', type_options: { attr: { rows: 3, style: 'min-height: 0;' } } }
