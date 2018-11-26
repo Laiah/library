@@ -72,7 +72,6 @@ class BookController extends AbstractController
 
                 if ($borrowedBook->getReservation() === BorrowedBook::BENCH) {
                     $borrowedBook->setValidationStatus(BorrowedBook::STATUS_ACCEPTED);
-                    $borrowedBook->getUser()->setHasBorrowed(true);
                     $borrowedBookService->save($borrowedBook);
                     $this->mailService->sendMailConfirmBorrower($borrowedBook);
                     $this->mailService->sendMailInformOwner($borrowedBook);

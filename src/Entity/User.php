@@ -38,12 +38,7 @@ class User
      * @Assert\Email()
      */
     private $email;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $hasBorrowed;
-
+    
     /**
      * An user can own many books.
      * @ORM\OneToMany(targetEntity="App\Entity\Book", mappedBy="owner", orphanRemoval=true)
@@ -60,7 +55,6 @@ class User
     {
         $this->books = new ArrayCollection();
         $this->borrowedBooks = new ArrayCollection();
-        $this->setHasBorrowed(false);
     }
 
     public function __toString(): string
@@ -105,18 +99,6 @@ class User
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getHasBorrowed(): bool
-    {
-        return $this->hasBorrowed;
-    }
-
-    public function setHasBorrowed(bool $hasBorrowed): self
-    {
-        $this->hasBorrowed = $hasBorrowed;
 
         return $this;
     }
