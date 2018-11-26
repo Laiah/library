@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Parameter;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * Class BorrowedBookService.
@@ -28,6 +29,37 @@ class BorrowedBookService
     {
         $this->em->persist($borrowedBook);
         $this->em->flush();
+    }
+
+    /**
+     * Retrieve last borrowed books ordered by ID desc.
+     *
+     * @param int $nbBorrowedBooks
+     *
+     * @return array
+     */
+    public function retrieveLastBorowedBooksById(int $nbBorrowedBooks = 5): array
+    {
+        $qb = $this->em->getRepository(BorrowedBook::class)->createQueryBuilder('bb')
+          ->orderBy('bb.id', 'DESC')
+          ->setMaxResults($nbBorrowedBooks)
+          ->getQuery();
+
+        return $qb->getResult();
+    }
+
+    /**
+     * @return int
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function countAllBorrowedBooks(): int
+    {
+        try {
+            $query = $this->em->createQuery('SELECT COUNT(u.id) FROM App\Entity\BorrowedBook u');
+            return (int) $query->getSingleScalarResult();
+        } catch(NonUniqueResultException $e) {
+            return 0;
+        }
     }
 
     /**

@@ -34,6 +34,7 @@ class BookExtension extends AbstractExtension
             new TwigFunction('shortTitle', [$this, 'shortenTitle']),
             new TwigFunction('borrowingDate', [$this, 'getBorrowingDates']),
             new TwigFunction('bookAvailability', [$this, 'bookAvailability']),
+            new TwigFunction('getBorrowedBookLabelClass', [$this, 'getBorrowedBookLabelClass']),
         ];
     }
 
@@ -47,6 +48,21 @@ class BookExtension extends AbstractExtension
     public function getName()
     {
         return 'book_extension';
+    }
+
+    public function getBorrowedBookLabelClass(string $status): string
+    {
+        switch ($status) {
+            case BorrowedBook::STATUS_ACCEPTED:
+                return "success";
+                break;
+            case BorrowedBook::STATUS_DECLINED:
+                return "danger";
+                break;
+            case BorrowedBook::STATUS_WAITING:
+            default:
+                return "warning";
+        }
     }
 
     public function shortenTitle(Book $book, int $maxLength)

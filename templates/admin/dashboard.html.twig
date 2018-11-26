@@ -1,6 +1,124 @@
 {% extends '@EasyAdmin/default/layout.html.twig' %}
 
 {% block main %}
-    <h1>Ekinothèque</h1>
+<section class="content">
+    <div class="row">
+    {# Books stats #}
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-blue"><i class="fa fa-book"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Books</span>
+                <span class="info-box-number">{{ stats.nbBooks }}</span>
+            </div>
+        </div>
+    </div>
+
+    {# Borrowed books stats #}
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-teal"><i class="fa fa-calendar"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Borrowed Books</span>
+                <span class="info-box-number">{{ stats.nbBorrowedBooks }}</span>
+            </div>
+        </div>
+    </div>
+
+    {# Users stats #}
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-purple"><i class="fa fa-users"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Users</span>
+                <span class="info-box-number">{{ stats.nbUsers }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="row">
+    {# Last borrowed books#}
+    <div class="col-md-8">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Latest borrowed books</h3>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="table no-margin">
+                        <thead>
+                            <tr>
+                                <th>Book / User</th>
+                                <th>From / To</th>
+                                <th>Reservation Type</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for borrow in lastBorrowedBooks %}
+                            <tr>
+                                <td>
+                                    <a title="Edit" href="{{ easyadmin_path('BorrowedBook', 'edit', {id: borrow.id }) }}">
+                                        {{ borrow.book.title }} /  {{ borrow.user.username }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <small><b>From</b>:</small> {{ borrow.borrowingDate|date("d/m/Y") }} <br/>
+                                    <small><b>To</b>: </small> {{ borrow.returnDate|date("d/m/Y") }}
+                                </td>
+                                <td>{{ borrow.reservation }}</td>
+                                <td><span class="label label-{{ getBorrowedBookLabelClass(borrow.validationStatus) }}">{{ borrow.validationStatus }}</span></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box-footer clearfix">
+                <a href="{{ easyadmin_path('BorrowedBook', 'list') }}" class="btn btn-sm btn-default btn-flat pull-right">View all borrowed books</a>
+            </div>
+        </div>
+    </div>
+
+    {# Recently added books #}
+    <div class="col-md-4">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Recently added books</h3>
+            </div>
+            <div class="box-body">
+                <ul class="products-list product-list-in-box">
+                    {% for book in lastBooks %}
+                    <li class="item">
+                        {% if book.cover is not empty %}
+                        <div class="product-img">
+                            <img src="{{ book.cover }}" alt="{{ book.title|e('html_attr') }}">
+                        </div>
+                        {% endif %}
+                        <div class="product-info">
+                            <a href="{{ easyadmin_path('Book', 'edit', {id: book.id}) }}" class="product-title">
+                                {{ book.title }}
+                            </a>
+                            <span class="product-description">
+                                <span class="fa fa-fw fa-user"></span>{{ book.owner.username }} |
+                                <span class="fa fa-fw fa-map-marker"></span>{{ book.location }}
+                        </span>
+                        </div>
+
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="box-footer text-center">
+                <a href="{{ easyadmin_path('Book', 'list') }}" class="uppercase">View All Books</a>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
 {% endblock %}
 
