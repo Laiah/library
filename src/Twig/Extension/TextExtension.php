@@ -34,12 +34,12 @@ class TextExtension extends AbstractExtension
     }
 
 
-    public function truncate(string $value, int $length, $separator = ' ...')
+    public function truncate(string $value, int $length, $suffix = ' ...')
     {
         if (strlen($value) < $length) {
             return $value;
         }
 
-        return substr($value, 0, $length) . $separator;
+        return substr($value, 0, $length) . $suffix;
     }
 }
