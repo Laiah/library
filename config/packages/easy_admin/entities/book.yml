@@ -16,7 +16,7 @@ easy_admin:
           - { type: 'group', css_class: 'col-sm-8', label: 'Basic informations', icon: 'pencil' }
           - { property: 'title', type_options: { required: true } }
           - { property: 'categories', type: 'entity', type_options: { class: 'App\Entity\Category', multiple: true, required: true, by_reference: false } }
-          - { property: 'description', type_options: { required: true } }
+          - { property: 'description', type_options: { required: true }, help: 'You can use <a target="_blank" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown</a> syntax here.' }
           - { type: 'group', css_class: 'col-sm-4', label: 'Book details', icon: 'book' }
           - { property: 'authors', type_options: { required: true } }
           - { property: 'cover', label: 'Cover (URL)', type_options: { required: true } }
@@ -24,4 +24,4 @@ easy_admin:
           - { type: 'group', css_class: 'col-sm-8', label: 'User', icon: 'user' }
           - { property: 'owner', label: 'Owner', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\User', required: true } }
           - { property: 'location', label: 'Location' }
-          - { property: 'comments', labe: 'Comments', type_options: { attr: { rows: 3, style: 'min-height: 0;' } } }
+          - { property: 'comments', labe: 'Comments', type_options: { attr: { rows: 3, style: 'min-height: 0;' } }, help: 'You can use <a target="_blank" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown</a> syntax here.' }
