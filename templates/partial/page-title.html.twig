@@ -1,6 +1,6 @@
 <!-- TITRE DE LA PAGE -->
 <div class="page-title">
-    <h1>Tous les livres disponibles ({{ books | length }})</h1>
+    <h1>Tous les livres ({{ books | length }})</h1>
     <div class="filters">
         <div class="btn-group">
             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -8,8 +8,13 @@
             </button>
             <div class="dropdown-menu">
                 {% for category in categories %}
+                    {% set parent = category.parent_id %}
+
+                    {% if parent is null and category != categories|first%}
+                        <div class="dropdown-divider"></div>
+                    {% endif %}
                     <a class="dropdown-item" href="{{ path('ekinotheque_filter_book', {categorySlug: category.slug}) }}">
-                        {{ category.parent_id is not null ? ''|strpad(category.level, '-') ~ '>' : '' }}{{ category.name }}
+                        {{ parent is not null ? ''|strpad(category.level, '-') ~ '> ' : '' }}{{ category.name }}
                     </a>
                 {% endfor %}
             </div>

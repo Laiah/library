@@ -1,20 +1,24 @@
 <div class="row">
-    {% for book in books %}
+    {% for book in books |reverse %}
         <!-- DÉBUT COL4 -->
         <div class="col-4">
             <!-- DÉBUT COMPOSANT CARD -->
-            <div class="card mb-3" style="width: 18rem;">
-                <div class="card-top">
-                    {% include 'partial/book-availability.html.twig' with {available: book is available} %}
-                    <img class="card-img-top" src="{{ book.cover }}" alt="Cover {{ book.title|e('html_attr') }}">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ shortTitle(book, 25) }}</h5>
 
-                    <p class="card-text">{% for category in book.categories %}#{{ category.name }} {% endfor %}</p>
-                    <a href="{{ path('ekinotheque_book_show', {bookSlug: book.slug}) }}" class="btn btn-primary">Voir le détail</a>
-                </div>
+            <div class="card mb-5 shadow" style="width: 18rem;">
+                <a href="{{ path('ekinotheque_book_show', {bookSlug: book.slug}) }}">
+                    <div class="card-top">
+                        {% include 'partial/book-availability.html.twig' with {available: book is available} %}
+                        <img class="card-img-top" src="{{ book.cover }}" alt="Cover {{ book.title|e('html_attr') }}">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ shortTitle(book, 25) }}</h5>
+
+                        <p class="card-text">{% for category in book.categories %}#{{ category.name }} {% endfor %}</p>
+                        <button class="btn btn-primary">Voir le détail</button>
+                    </div>
+                </a>
             </div>
+
             <!-- FIN COMPOSANT CARD -->
         </div>
         <!-- FIN COL4 -->
