@@ -11,7 +11,6 @@ class TextExtension extends AbstractExtension
     public function getFilters() {
         return [
             new TwigFilter('strpad', [$this, 'strpad']),
-            new TwigFilter('truncate', [$this, 'truncate']),
         ];
     }
 
@@ -31,15 +30,5 @@ class TextExtension extends AbstractExtension
     public function strpad(string $stringToComplete, int $padLength, string $padString = ' ', int $direction = STR_PAD_LEFT): string
     {
         return str_pad($stringToComplete, $padLength, $padString, $direction);
-    }
-
-
-    public function truncate(string $value, int $length, $suffix = ' ...')
-    {
-        if (strlen($value) < $length) {
-            return $value;
-        }
-
-        return substr($value, 0, $length) . $suffix;
     }
 }
