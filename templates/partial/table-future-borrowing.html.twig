@@ -1,0 +1,27 @@
+<div class="row future">
+    <h2>A venir</h2>
+
+    <table class="table table-borderless table-hover mx-auto">
+        <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Pseudo</th>
+                <th>Date d'emprunt</th>
+                <th>Date de retour</th>
+                <th>Type d'emprunt</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for borrowedBook in borrowedBooks if borrowedBook.validationStatus == constant('App\\Entity\\BorrowedBook::STATUS_ACCEPTED') and borrowedBook.borrowingDate > date() %}
+                <tr class="border-bottom future">
+                    <td>{{ borrowedBook.user.firstname }}</td>
+                    <td>{{ borrowedBook.user.username }}</td>
+                    <td>{{ borrowedBook.borrowingDate | date('d-m-Y') }}</td>
+                    <td>{{ borrowedBook.returnDate | date('d-m-Y') }}</td>
+                    <td>{{ borrowedBook.reservation }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
