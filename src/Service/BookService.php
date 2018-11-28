@@ -44,11 +44,23 @@ class BookService
     }
 
     /**
+     * @param array $ids
+     *
+     * @return array
+     */
+    public function retrieveBooksByIds(array $ids): array
+    {
+        return $this->em->getRepository(Book::class)->findBy([
+          'id' => $ids
+        ]);
+    }
+
+    /**
      * @param int $nbBooks
      *
      * @return array
      */
-    public function retrieveLastBooksById(int $nbBooks = 5): array
+    public function retrieveLastBooksOrderedById(int $nbBooks = 5): array
     {
         $qb = $this->em->getRepository(Book::class)->createQueryBuilder('b')
           ->orderBy('b.id', 'DESC')

@@ -3,7 +3,11 @@ easy_admin:
     menu:
       - { label: 'Dashboard', route: 'admin_dashboard', default: true }
       - label: 'Biblio'
-      - { entity: 'Book', icon: 'book', params: { sortField: 'id', sortDirection: 'DESC' }}
+      - label: 'Book'
+        icon: book
+        children:
+          - { entity: 'Book', label: 'Book listing', icon: 'book', params: { sortField: 'id', sortDirection: 'DESC' }}
+          - { label: 'Print book listing', icon: 'print', route: 'admin_books_listing_print' }
       - { entity: 'Category', icon: 'hashtag'}
       - { entity: 'BorrowedBook', label: 'Borrowed Books', icon: 'calendar'}
       - label: 'App'
