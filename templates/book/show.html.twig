@@ -2,10 +2,16 @@
 
 {% block body %}
     <section class="container mt-4">
+
         <a href="{{ path('ekinotheque_home') }}">< Revenir à la liste</a>
-        
+
         <div class="row mt-4 d-flex">
-            <img src="{{ book.cover }}" class="h-100 col-2">
+
+            <div class="col-2">
+                <img src="{{ book.cover }}" class="img-fluid" />
+                <br/><br/>
+                <img src="{{ qr_code_path(path('ekinotheque_book_show', {bookSlug: book.slug})) }}" class="mt-10 img-fluid" />
+            </div>
 
             <div class="col-10">
                 {% include 'partial/book-availability.html.twig' with {available: book is available} %}
@@ -34,7 +40,7 @@
                 </div>
 
                 <div class="mx-auto my-4">
-                    <a href="{{ path('ekinotheque_book_borrow', {bookId: book.id}) }}" class="btn mr-4 shadow btn-primary">
+                    <a href="{{ path('ekinotheque_book_borrow', {bookSlug: book.slug}) }}" class="btn mr-4 shadow btn-primary">
                         Emprunter le livre
                     </a>
                 </div>
@@ -43,6 +49,7 @@
         </div>
     </section>
 
+    {% if book.borrowedBooks is not empty %}
     <section class="container-fluid mt-4 bg-light">
         <div class="container">
             <h2 class="mb-4 pt-4">Historique d'emprunt</h2>
@@ -73,6 +80,6 @@
                 </tbody>
             </table>
         </div>
-
     </section>
+    {% endif %}
 {% endblock %}

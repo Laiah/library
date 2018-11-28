@@ -48,8 +48,8 @@ class BookController extends AbstractController
     }
 
     /**
-     * @Route(name="ekinotheque_book_borrow", path="/{bookId}/borrow")
-     * @ParamConverter(name="book", options={"mapping": {"bookId" : "id"}})
+     * @Route(name="ekinotheque_book_borrow", path="/{bookSlug}/borrow")
+     * @ParamConverter(name="book", options={"mapping": {"bookSlug" : "slug"}})
      *
      * @param \App\Entity\Book $book
      * @param \App\Service\BorrowedBookService $borrowedBookService
