@@ -2,40 +2,6 @@
 
 {% block main %}
 <section class="content">
-
-    <form action="{{ path('admin_books_listing_print') }}" method="POST" target="_blank">
-
-        <input type="submit" class="btn btn-primary action-new" value="Print the selection" />
-
-        <div class="row">
-            {% if books is defined and books is not empty %}
-            <table class="table">
-                <tbody>
-                    {% for book in books %}
-                    <tr>
-                        <td class="align-middle">
-                            <label>
-                                <input class="flat-green" type="checkbox" name="selected_books[]" value="{{ book.id }}" />
-                            </label>
-                        </td>
-                        <td width="120" align="center">
-                            <img src="{{ qr_code_path( path('ekinotheque_book_borrow', {'bookSlug': book.slug}), {size: 100} ) }}" />
-                        </td>
-                        <td>
-                            <h3>{{ book.title }}</h3>
-                            <p>@{{ book.owner.username }} - {{ book.location }}</p>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            {% endif %}
-        </div>
-
-        <input type="submit" class="btn btn-primary action-new" value="Print the selection" />
-
-    </form>
-
+    {{ form(qrCodeBookForm) }}
 </section>
 {% endblock %}
-

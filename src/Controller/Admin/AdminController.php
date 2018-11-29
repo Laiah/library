@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Form\QRCodeBookType;
 use App\Service\UserService;
+use Doctrine\Common\Collections\ArrayCollection;
 use JavierEguiluz\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use App\Service\BookService;
@@ -49,17 +51,29 @@ class AdminController extends BaseAdminController
      */
     public function bookListingWithQRCodeAction(Request $request, BookService $bookService)
     {
-        if($request->isMethod('POST')) {
-            $booksIds = $request->get('selected_books');
-            if(is_array($booksIds) && !empty($booksIds)) {
+        $formOptions = [
+          'attr' => [
+            'target' => '_blank'
+          ]
+        ];
+
+        $form = $this->createForm(QRCodeBookType::class, $bookService->findAll(), $formOptions);
+        $form->handleRequest($request);
+
+        if($request->isMethod('POST') && $form->isSubmitted() && $form->isValid()) {
+
+            $selectedBooksData = $form['selected_books']->getData();
+
+            if( ($selectedBooksData instanceof ArrayCollection) && !$selectedBooksData->isEmpty()) {
                 return $this->render('admin/books-listing-print.html.twig', [
-                  "books" => $bookService->retrieveBooksByIds($booksIds)
+                  "books" => $selectedBooksData,
                 ]);
             }
         }
 
         return $this->render('admin/books-listing.html.twig', [
-            "books" => $bookService->findAll()
+            "books" => $bookService->findAll(),
+            "qrCodeBookForm" => $form->createView(),
         ]);
     }
 }
