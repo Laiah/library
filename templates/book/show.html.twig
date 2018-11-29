@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% set description = book.description %}
+
 {% block body %}
     <section class="container mt-4">
 
@@ -24,8 +26,10 @@
 
                 <div class="row">
                     {% set hasComments = book.comments is not empty %}
-                    <div class="col-md-{{ hasComments ? 8 : 12 }}">
-                        <p>{{ book.description|markdown }}</p>
+                    <div class="col-md-{{ hasComments ? 8 : 12 }}" id="book-description">
+                        {{ description|truncate(300)|markdown }}
+                        <br>
+                        <button class="btn btn-secondary read-more">Voir plus</button>
                     </div>
                     {% if hasComments %}
                     <div class="col-md-4">
@@ -80,4 +84,12 @@
         </div>
     </section>
     {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $("button.read-more").click(function() {
+            $("#book-description").empty().append('{{ description|markdown|e('js') }}');
+        });
+    </script>
 {% endblock %}
