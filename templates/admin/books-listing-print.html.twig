@@ -23,7 +23,7 @@
             {% if books is defined and books is not empty %}
             <table class="table">
                 <tbody>
-                {% for row in books|batch(2, 'No more books!') %}
+                {% for row in books|batch(2) %}
                     <tr>
                         {% for book in row %}
                         <td width="10%">
