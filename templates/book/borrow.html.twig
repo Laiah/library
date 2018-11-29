@@ -17,13 +17,26 @@
 
         <div class="row my-5 bg-light shadow p-4 w-75 mx-auto">
             <div class="d-flex">
-                <img src="{{ book.cover }}" class="col-3">
+                <div class="col-3">
+                    <img src="{{ book.cover }}" class="img-fluid">
+                </div>
                 <div class="col-9 pt-4">
                     <h3>{{ book.title }}</h3>
                     <p>Mis à disposition par : {{ book.owner }}</p>
-                    <p class="card-text font-weight-bold">{% for category in book.categories %}#{{ category.name }} {% endfor %}</p>
-                </div>
+                    <p class="card-text font-weight-bold">
+                        {% for category in book.categories %}
+                            #{{ category.name }}
+                        {% endfor %}
+                    </p>
 
+                    {% if book.comments is not empty %}
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Conditions d'emprunt</strong> <br/>
+                        {{ book.comments|markdown }}
+                    </div>
+                    {% endif %}
+
+                </div>
             </div>
         </div>
     </section>
