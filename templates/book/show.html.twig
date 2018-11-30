@@ -69,20 +69,24 @@
         <section class="container-fluid mt-4 bg-light">
             <div class="container pt-4">
                 {# Old borrowed books #}
-                {% include 'partial/table-borrowing.html.twig' with {
-                    'title': 'A venir',
-                    'borrowedBooks': futureBorrowedBooks,
-                    'cssClass': 'future',
-                    'isPast': FALSE
-                } %}
+                {% if futureBorrowedBooks is not empty %}
+                    {% include 'partial/table-borrowing.html.twig' with {
+                        'title': 'A venir',
+                        'borrowedBooks': futureBorrowedBooks,
+                        'cssClass': 'future',
+                        'isPast': FALSE
+                    } %}
+                {% endif %}
 
                 {# Future borrowed books #}
-                {% include 'partial/table-borrowing.html.twig' with {
-                    'title': 'Historique d\'emprunt',
-                    'borrowedBooks': historyBorrowedBooks,
-                    'cssClass': 'history',
-                    'isPast': TRUE
-                } %}
+                {% if historyBorrowedBooks is not empty %}
+                    {% include 'partial/table-borrowing.html.twig' with {
+                        'title': 'Historique d\'emprunt',
+                        'borrowedBooks': historyBorrowedBooks,
+                        'cssClass': 'history',
+                        'isPast': TRUE
+                    } %}
+                {% endif %}
             </div>
         </section>
     {% endif %}
