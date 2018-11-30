@@ -1,0 +1,34 @@
+<div class="row {{ cssClass }}">
+    <h2 class="mb-4 pt-4">{{ title }}</h2>
+
+    <table class="table table-borderless table-hover mx-auto">
+        <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Pseudo</th>
+                <th>Date d'emprunt</th>
+                <th>Date de retour</th>
+                <th>Type d'emprunt</th>
+                {% if isPast %}
+                    <th>A été rendu</th>
+                {% endif %}
+
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for borrowedBook in borrowedBooks %}
+                <tr class="border-bottom {{ cssClass }}">
+                    <td>{{ borrowedBook.user.firstname }}</td>
+                    <td>{{ borrowedBook.user.username }}</td>
+                    <td>{{ borrowedBook.borrowingDate | date('d-m-Y') }}</td>
+                    <td>{{ borrowedBook.returnDate | date('d-m-Y') }}</td>
+                    <td>{{ borrowedBook.reservation }}</td>
+                    {% if isPast %}
+                        <td>{{ borrowedBook.hasBeenReturned ? 'Oui' : 'Non' }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

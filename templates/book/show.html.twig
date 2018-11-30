@@ -51,38 +51,40 @@
         </div>
     </section>
 
-    {% if book.borrowedBooks is not empty %}
-    <section class="container-fluid mt-4 bg-light">
-        <div class="container">
-            <h2 class="mb-4 pt-4">Historique d'emprunt</h2>
+    {% set borrowedBooks = book.borrowedBooks %}
 
-            <table class="table table-borderless table-hover mx-auto">
-                <thead>
-                    <tr>
-                        <th>Prénom</th>
-                        <th>Pseudo</th>
-                        <th>Date d'emprunt</th>
-                        <th>Date de retour</th>
-                        <th>Type d'emprunt</th>
-                    </tr>
-                </thead>
+    {% if borrowedBooks is not empty %}
 
-                <tbody>
-                    {% for borrowedBook in book.borrowedBooks %}
-                        {% if borrowedBook.validationStatus == constant('App\\Entity\\BorrowedBook::STATUS_ACCEPTED') %}
-                            <tr class="border-bottom">
-                                <td>{{ borrowedBook.user.firstname }}</td>
-                                <td>{{ borrowedBook.user.username }}</td>
-                                <td>{{ borrowedBook.borrowingDate | date('d-m-Y') }}</td>
-                                <td>{{ borrowedBook.returnDate | date('d-m-Y') }}</td>
-                                <td>{{ borrowedBook.reservation }}</td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </section>
+        {% set futureBorrowedBooks = [] %}
+        {% set historyBorrowedBooks = [] %}
+
+        {% for borrowedBook in borrowedBooks if borrowedBook.validationStatus == constant('App\\Entity\\BorrowedBook::STATUS_ACCEPTED') %}
+            {% if borrowedBook.borrowingDate > date() %}
+                {% set futureBorrowedBooks = futureBorrowedBooks|merge([borrowedBook]) %}
+            {% else %}
+                {% set historyBorrowedBooks = historyBorrowedBooks|merge([borrowedBook]) %}
+            {% endif %}
+        {% endfor %}
+
+        <section class="container-fluid mt-4 bg-light">
+            <div class="container pt-4">
+                {# Old borrowed books #}
+                {% include 'partial/table-borrowing.html.twig' with {
+                    'title': 'A venir',
+                    'borrowedBooks': futureBorrowedBooks,
+                    'cssClass': 'future',
+                    'isPast': FALSE
+                } %}
+
+                {# Future borrowed books #}
+                {% include 'partial/table-borrowing.html.twig' with {
+                    'title': 'Historique d\'emprunt',
+                    'borrowedBooks': historyBorrowedBooks,
+                    'cssClass': 'history',
+                    'isPast': TRUE
+                } %}
+            </div>
+        </section>
     {% endif %}
 {% endblock %}
 
