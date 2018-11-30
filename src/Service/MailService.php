@@ -11,7 +11,7 @@ use App\Entity\BorrowedBook;
  */
 class MailService
 {
-    const SENDER = 'admin-biblio@ekino.com';
+    const SENDER = 'admin-biblio@gmail.com';
 
     private $mailer;
 

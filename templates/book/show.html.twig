@@ -5,7 +5,7 @@
 {% block body %}
     <section class="container mt-4">
 
-        <a href="{{ path('ekinotheque_home') }}">< Revenir à la liste</a>
+        <a href="{{ path('biblio_home') }}">< Revenir à la liste</a>
 
         <div class="row mt-4 d-flex">
 
@@ -19,7 +19,7 @@
                 <p>Mis à disposition par : {{ book.owner }} {{ book.location is not null ? '('~ book.location ~')' : '' }}</p>
 
                 {% for category in book.categories %}
-                    <a href="{{ path('ekinotheque_filter_book', {'categorySlug': category.slug}) }}">#{{ category }}</a>
+                    <a href="{{ path('biblio_filter_book', {'categorySlug': category.slug}) }}">#{{ category }}</a>
                 {% endfor %}
 
                 <hr>
@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="mx-auto my-4">
-                    <a href="{{ path('ekinotheque_book_borrow', {bookSlug: book.slug}) }}" class="btn mr-4 shadow btn-primary">
+                    <a href="{{ path('biblio_book_borrow', {bookSlug: book.slug}) }}" class="btn mr-4 shadow btn-primary">
                         Emprunter le livre
                     </a>
                 </div>

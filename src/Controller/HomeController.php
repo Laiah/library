@@ -34,7 +34,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route(name="ekinotheque_home", path="/")
+     * @Route(name="biblio_home", path="/")
      * @param \App\Service\BookService $bookService
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -53,7 +53,7 @@ class HomeController extends AbstractController
 
     /**
      * @Route(
-     *     name="ekinotheque_filter_book",
+     *     name="biblio_filter_book",
      *     path="/filter/{categorySlug}",
      *     requirements={"[a-z]+"}
      *     )

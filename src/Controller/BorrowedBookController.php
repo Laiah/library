@@ -31,7 +31,7 @@ class BorrowedBookController extends AbstractController
     }
 
     /**
-     * @Route(name="ekinotheque_book_borrow_confirm", path="/{bookId}/confirm/{borrowedBookId}")
+     * @Route(name="biblio_book_borrow_confirm", path="/{bookId}/confirm/{borrowedBookId}")
      * @ParamConverter(name="book", options={"id" = "bookId"})
      * @ParamConverter(name="borrowedBook", options={"id" = "borrowedBookId"})
      *
@@ -52,7 +52,7 @@ class BorrowedBookController extends AbstractController
     }
 
     /**
-     * @Route(name="ekinotheque_book_borrow_accept", path="/accept/{borrowedBookId}")
+     * @Route(name="biblio_book_borrow_accept", path="/accept/{borrowedBookId}")
      * @ParamConverter(name="borrowedBook", options={"mapping": {"borrowedBookId" : "id"}})
      *
      * @param \App\Entity\BorrowedBook $borrowedBook
@@ -73,7 +73,7 @@ class BorrowedBookController extends AbstractController
     }
 
     /**
-     * @Route(name="ekinotheque_book_borrow_decline", path="/decline/{borrowedBookId}")
+     * @Route(name="biblio_book_borrow_decline", path="/decline/{borrowedBookId}")
      * @ParamConverter(name="borrowedBook", options={"mapping": {"borrowedBookId" : "id"}})
      *
      * @param \App\Entity\BorrowedBook $borrowedBook
@@ -93,7 +93,7 @@ class BorrowedBookController extends AbstractController
     }
 
     /**
-     * @Route(name="ekinotheque_book_borrow_return", path="/return/{borrowedBookId}")
+     * @Route(name="biblio_book_borrow_return", path="/return/{borrowedBookId}")
      * @ParamConverter(name="borrowedBook", options={"mapping": {"borrowedBookId" : "id"}})
      * @param \App\Entity\BorrowedBook $borrowedBook
      *
