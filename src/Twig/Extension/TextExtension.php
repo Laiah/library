@@ -1,16 +1,16 @@
 <?php
 
 namespace App\Twig\Extension;
+
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-
 
 class TextExtension extends AbstractExtension
 {
 
     public function getFilters() {
         return [
-          new TwigFilter('strpad', [$this, 'strpad']),
+            new TwigFilter('strpad', [$this, 'strpad']),
         ];
     }
 

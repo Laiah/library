@@ -38,7 +38,7 @@ class BorrowedBookService
      *
      * @return array
      */
-    public function retrieveLastBorowedBooksById(int $nbBorrowedBooks = 5): array
+    public function retrieveLastBorowedBooksOrderedById(int $nbBorrowedBooks = 5): array
     {
         $qb = $this->em->getRepository(BorrowedBook::class)->createQueryBuilder('bb')
           ->orderBy('bb.id', 'DESC')

@@ -1,4 +1,7 @@
 {
+    "bacon/bacon-qr-code": {
+        "version": "1.0.3"
+    },
     "behat/transliterator": {
         "version": "v1.2.0"
     },
@@ -92,6 +95,21 @@
     "egulias/email-validator": {
         "version": "2.1.6"
     },
+    "endroid/installer": {
+        "version": "1.0.7"
+    },
+    "endroid/qr-code": {
+        "version": "3.4.9"
+    },
+    "endroid/qr-code-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "b9fcbe18b537c63bf61d3c3be8116a00a85c8e2e"
+        }
+    },
     "facebook/webdriver": {
         "version": "1.6.0"
     },
@@ -104,6 +122,9 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "khanamiryan/qrcode-detector-decoder": {
+        "version": "1.0.2"
+    },
     "knplabs/knp-markdown-bundle": {
         "version": "1.7.0"
     },
@@ -112,6 +133,9 @@
     },
     "monolog/monolog": {
         "version": "1.24.0"
+    },
+    "myclabs/php-enum": {
+        "version": "1.6.4"
     },
     "nikic/php-parser": {
         "version": "v4.1.0"

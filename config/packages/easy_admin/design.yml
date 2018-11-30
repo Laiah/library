@@ -1,2 +1,4 @@
 easy_admin:
   site_name: 'Ekinothèque'
+  list:
+    actions: ['show', 'edit', 'delete', 'search']
