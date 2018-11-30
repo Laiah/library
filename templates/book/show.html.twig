@@ -46,11 +46,35 @@
     {% set borrowedBooks = book.borrowedBooks %}
 
     {% if borrowedBooks is not empty %}
+
+        {% set futureBorrowedBooks = [] %}
+        {% set historyBorrowedBooks = [] %}
+
+        {% for borrowedBook in borrowedBooks if borrowedBook.validationStatus == constant('App\\Entity\\BorrowedBook::STATUS_ACCEPTED') %}
+            {% if borrowedBook.borrowingDate > date() %}
+                {% set futureBorrowedBooks = futureBorrowedBooks|merge([borrowedBook]) %}
+            {% else %}
+                {% set historyBorrowedBooks = historyBorrowedBooks|merge([borrowedBook]) %}
+            {% endif %}
+        {% endfor %}
+
         <section class="container-fluid mt-4 bg-light">
             <div class="container pt-4">
-                {% include 'partial/table-future-borrowing.html.twig' %}
+                {# Old borrowed books #}
+                {% include 'partial/table-borrowing.html.twig' with {
+                    'title': 'A venir',
+                    'borrowedBooks': futureBorrowedBooks,
+                    'cssClass': 'future',
+                    'isPast': FALSE
+                } %}
 
-                {% include 'partial/table-old-borrowing.html.twig' %}
+                {# Future borrowed books #}
+                {% include 'partial/table-borrowing.html.twig' with {
+                    'title': 'Historique d\'emprunt',
+                    'borrowedBooks': historyBorrowedBooks,
+                    'cssClass': 'history',
+                    'isPast': TRUE
+                } %}
             </div>
         </section>
     {% endif %}
